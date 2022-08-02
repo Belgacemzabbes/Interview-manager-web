@@ -1,0 +1,110 @@
+<div class="content-header">Liste des entretiens</div>
+<form class="form" autocomplete="off" (ngSubmit)="getAllInterviewBySearchCriteria()">
+  <section>
+    <div class="card card-search mt-3">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="form-section">
+            <i class="mdi mdi-filter"></i>Critère de recherche
+          </div>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label class="label-control" for="session">Session</label>
+              <input class="form-control" type="text" name="session" id="session"
+                [(ngModel)]="interviewSearch.session" />
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateDebut">Date Début</label>
+              <input class="form-control" type="date" name="dateDebut" id="dateDebut"
+                [(ngModel)]="interviewSearch.dateDebut" onkeydown="return false"/>
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateFin">Date Fin</label>
+              <input class="form-control" type="date" name="dateFin" id="dateFin"
+                [(ngModel)]="interviewSearch.dateFin" onkeydown="return false"/>
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="annule">Annulé</label>
+              <ng-select [items]="ouiNonList" name="annule" id="annule" binValue="value" bindLabel="text" [(ngModel)]="interviewSearch.estAnnule"
+               placeholder="Oui ou Non" [searchable]="false"></ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-block search-footer-color">
+        <div class="float-right mr-5 mb-2">
+          <button type="submit" class="btn btn-raised btn-primary">
+            <span class="ft-search"></span>Chercher
+          </button>
+        </div>
+        <div class="float-right mr-2 mb-2">
+          <button type="button" class="btn btn-raised btn-warning" (click)="onCancelSearch()">
+            <span class="ft-file"></span>
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="card mt-3">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-block">
+            <form>
+              <div class="input-group">
+                <div>
+                  <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré par</span>
+                </div>
+                <input type="text" class="form-control" placeholder="Recherche..." [formControl]="searchTerm" />
+              </div>
+            </form>
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center">Session</th>
+                    <th class="text-center">Formation</th>
+                    <th class="text-center">Candidat</th>
+                    <th class="text-center">Heure</th>
+                    <th class="text-center">Détail Entretien</th>
+                    <th class="text-center">Annuler entretien</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let interview of interviewListFiltered">
+                    <td class="py-1 text-center">
+                      <ngb-highlight [result]="interview.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      <ngb-highlight [result]="interview.liB_FORMATION" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      <ngb-highlight [result]="interview.identitE_CANDIDAT" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      <ngb-highlight [result]="interview.heurE_ENTRETIEN" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      <!-- <a class="mdi mdi-eye font-weight-medium primary"></a> -->
+                      <a routerLink="/interview-management/detail-interview/{{
+                          interview.iD_ENTRETIEN
+                        }}">
+                        <i class="fa-solid fa-eye"></i>
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a (click)="onCancelEntretien(interview)">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

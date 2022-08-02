@@ -1,0 +1,127 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+  <ul class="nav">
+    <li class="nav-item nav-profile">
+      <!-- <a href="javascript:;" class="nav-link">
+        <div class="nav-profile-image">
+          <img src="assets/images/faces/face1.jpg" alt="profile">
+          <span class="login-status online"></span>
+          
+        </div>
+        <div class="nav-profile-text">
+          <span class="font-weight-bold mb-2">David Grey. H</span>
+          <span class="text-secondary text-small">Project Manager</span>
+        </div>
+        <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
+      </a>-->
+    </li> 
+    <li class="nav-item" *ngFor="let menu of menuItems" >
+      <a *ngIf="menu.parent == 0" class="nav-link" [ngClass]="{'active' : menu.isActive }" (click)="collapseMenu(menu)" [routerLink]="menu.submenu.length > 0 ? null : [menu.path]" [routerLinkActive]="menu.submenu.length > 0 ? '' : 'active'"  [attr.aria-expanded]="!menu.isCollapsed">
+        <span class="menu-title">{{menu.designation}}</span>
+        <i class="menu-arrow" *ngIf="menu.class == 'has-sub'"></i>
+        <i class="mdi menu-icon" [ngClass]="menu.icon"></i>
+      </a>
+      <div class="collapse" [ngbCollapse]="menu.isCollapsed" >
+        <ul class="nav flex-column sub-menu" >
+          <li  class="nav-item" *ngFor="let sub of menu.submenu"><a class="nav-link" [routerLink]="sub.submenu.length > 0 ? null : [sub.path]" [routerLinkActive]="sub.submenu.length > 0 ? '' : 'active'"
+              #accordions="routerLinkActive">{{sub.designation}} </a></li>
+          
+        </ul>
+      </div>
+    </li>
+    <!-- <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
+        <span class="menu-title">Dashboard</span>
+        <i class="mdi mdi-home menu-icon"></i>
+      </a>
+    </li>
+    <li class="nav-item" [ngClass]="{'active' : false }">
+      <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed"
+        aria-controls="ui-basic">
+        <span class="menu-title">Gestion des utilisateurs</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-account-multiple menu-icon"></i>
+      </a>
+      <div class="collapse" id="ui-basic" [ngbCollapse]="!uiBasicCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="user-management/adding-user" routerLinkActive="active"
+              #accordions="routerLinkActive">Ajout d'utilisateur</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="user-management/users-list" routerLinkActive="active"
+              #buttons="routerLinkActive">Listes des utilisateurs</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': false }">
+      <a class="nav-link" (click)="gestionSessionCollapsed = !gestionSessionCollapsed"
+        [attr.aria-expanded]="gestionSessionCollapsed" aria-controls="gestion-session">
+        <span class="menu-title">Gestions des sessions</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+      </a>
+      <div class="collapse" id="gestion-session" [ngbCollapse]="!gestionSessionCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="session-management/adding-session"
+              routerLinkActive="active" #accordions="routerLinkActive">Ajout session</a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="session-management/session-list"
+              routerLinkActive="active" #buttons="routerLinkActive">Liste des sessions</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': false }">
+      <a class="nav-link" (click)="gestionEntretienCollapsed = !gestionEntretienCollapsed"
+        [attr.aria-expanded]="gestionEntretienCollapsed" aria-controls="gestion-entretien">
+        <span class="menu-title">Gestions des entretiens</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-calendar-account-outline menu-icon"></i>
+      </a>
+      <div class="collapse" id="gestion-entretien" [ngbCollapse]="!gestionEntretienCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"><a class="nav-link" routerLink="interview-management/interview-list"
+              routerLinkActive="active" #accordions="routerLinkActive">Liste des entretiens</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="nav-item" [ngClass]="{ 'active': false }">
+      <a class="nav-link" (click)="gestionCandidatCollapsed = !gestionCandidatCollapsed"
+        [attr.aria-expanded]="gestionCandidatCollapsed" aria-controls="gestion-candidat">
+        <span class="menu-title">Gestion des candidats</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-account-check menu-icon"></i>
+      </a>
+      <div class="collapse" id="gestion-candidat" [ngbCollapse]="!gestionCandidatCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"><a class="nav-link" routerLink="candidate-management/candidate-presence"
+              routerLinkActive="active" #accordions="routerLinkActive">Présence</a></li>
+          <li class="nav-item"><a class="nav-link" routerLinkActive="active"
+              #accordions="routerLinkActive">Pré-inscrit</a></li>
+          <li class="nav-item"><a class="nav-link" routerLinkActive="active" #accordions="routerLinkActive">Paiement</a>
+          </li>
+          <li class="nav-item"><a class="nav-link" routerLinkActive="active"
+              #accordions="routerLinkActive">Attestation</a></li>
+        </ul>
+      </div>
+    </li> -->
+    <!-- <li class="nav-item" [ngClass]="{ 'active': icons.isActive }">
+      <a class="nav-link" routerLink="icons/mdi" routerLinkActive #icons="routerLinkActive">
+        <span class="menu-title">Icons</span>
+        <i class="mdi mdi-contacts menu-icon"></i>
+      </a>
+    </li> -->
+    <!-- <li class="nav-item" [ngClass]="{ 'active' : blankPage.isActive || login.isActive || register.isActive || error404.isActive || error500.isActive }">
+      <a class="nav-link" (click)="samplePagesCollapsed = !samplePagesCollapsed"  [attr.aria-expanded]="samplePagesCollapsed" aria-controls="auth">
+        <span class="menu-title">Sample Pages</span>
+        <i class="menu-arrow"></i>
+        <i class="mdi mdi-medical-bag menu-icon"></i>
+      </a>
+      <div class="collapse" id="auth" [ngbCollapse]="!samplePagesCollapsed">
+        <ul class="nav flex-column sub-menu">
+          <li class="nav-item"> <a class="nav-link" routerLink="general-pages/blank-page" routerLinkActive="active" #blankPage="routerLinkActive"> Blank Page </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="user-pages/login" routerLinkActive="active" #login="routerLinkActive"> Login </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="user-pages/register" routerLinkActive="active" #register="routerLinkActive"> Register </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="error-pages/404" routerLinkActive="active" #error404="routerLinkActive"> 404 </a></li>
+          <li class="nav-item"> <a class="nav-link" routerLink="error-pages/500" routerLinkActive="active" #error500="routerLinkActive"> 500 </a></li>
+        </ul>
+      </div>
+    </li> -->
+  </ul>
+
+</nav>

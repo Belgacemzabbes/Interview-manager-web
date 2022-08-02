@@ -1,0 +1,66 @@
+<div class="content-header">Liste des entretiens</div>
+<form class="form" autocomplete="off">
+  <section>
+    <div class="card card-search mt-3">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="form-section">
+            <i class="mdi mdi-filter"></i>Critère de recherche
+          </div>
+          <div class="form-group row">
+            <div class="col-3">
+              <label class="label-control" for="candidat">Candidat</label>
+              <ng-select></ng-select>
+            </div>
+            <div class="col-3">
+              <label class="label-control" for="etat">État</label>
+              <ng-select></ng-select>
+            </div>
+            <div class="col-3">
+              <label class="label-control" for="email">Email</label>
+              <input class="form-control" type="email" name="email" id="email"
+                 />
+            </div>
+            <div class="col-3">
+                <label class="label-control" for="dateFin">Date de naissance</label>
+                <input class="form-control" type="date" name="dateNnaissance" id="dateNnaissance"
+                  />
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-block search-footer-color">
+        <div class="float-right mr-5 mb-2">
+          <button type="submit" class="btn btn-raised btn-primary">
+            <span class="ft-search"></span>Chercher
+          </button>
+        </div>
+        <div class="float-right mr-2 mb-2">
+          <button type="button" class="btn btn-raised btn-warning" (click)="onCancel()">
+            <span class="ft-file"></span>
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="card mt-3">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-block">
+            <form>
+              <div class="input-group">
+                <div>
+                  <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré par</span>
+                </div>
+                <!-- <input type="text" class="form-control" placeholder="Recherche..." [formControl]="searchTerm" /> -->
+              </div>
+            </form>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

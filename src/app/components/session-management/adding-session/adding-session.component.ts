@@ -1,0 +1,94 @@
+import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { AddReponseEnum } from 'src/app/shared/Enumerators/Enums';
+import { EstablishmentModel } from 'src/app/shared/models/establishment-model';
+import { SessionModel } from 'src/app/shared/models/session-models';
+import { UserModel } from 'src/app/shared/models/user-models';
+import { AuthService } from 'src/app/shared/services/auth.service';
+import { EtablissementService } from 'src/app/shared/services/etablissement.service';
+import { SessionService } from 'src/app/shared/services/session.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
+import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+
+@Component({
+  selector: 'app-adding-session',
+  templateUrl: './adding-session.component.html',
+  styleUrls: ['./adding-session.component.css'],
+})
+export class AddingSessionComponent implements OnInit {
+  public etablissementList: EstablishmentModel[] = [];
+  public sessionDetail: SessionModel;
+  public currentUser: UserModel;
+  public isNotValid: boolean = false;
+  public dateDiff: any;
+  constructor(
+    private etablissementService: EtablissementService,
+    private sessionService: SessionService,
+    private authService: AuthService,
+    private toastrService: NgxToastrService,
+    private datePipe: DatePipe,
+    private sweetAlert: SweetAlertService
+  ) {
+    this.sessionDetail = new SessionModel();
+    this.currentUser = new UserModel();
+  }
+
+  ngOnInit(): void {
+    this.GetAllEtablissement();
+    this.getUserById();
+  }
+  async GetAllEtablissement() {
+    this.etablissementService.GetAllEtablissement().subscribe((data) => {
+      this.etablissementList = data;
+    });
+  }
+  async AddSession(formValidation: NgForm) {
+    if (formValidation.valid) {
+      if (!!this.sessionDetail.datE_FIN && !!this.sessionDetail.datE_DEBUT) {
+        this.dateDiff =
+          Number(
+            this.datePipe.transform(this.sessionDetail.datE_FIN, 'yyyyMMdd')
+          ) -
+          Number(
+            this.datePipe.transform(this.sessionDetail.datE_DEBUT, 'yyyyMMdd')
+          );
+      }
+      if (this.dateDiff < 0) {
+        this.sweetAlert.showErrorMessage(
+          'La date fin doit être supèrieur à la date début!'
+        );
+      } else {
+        this.sessionDetail.iD_USER = this.currentUser.iD_USER;
+        this.sessionService.AddSession(this.sessionDetail).subscribe(
+          (data) => {
+            if (data === AddReponseEnum.NotExist) {
+              this.toastrService.displaySuccessMessage('Ajouté avec succés');
+              this.sessionDetail = new SessionModel();
+              this.isNotValid = false;
+            } else if (data === AddReponseEnum.Exist) {
+              this.sweetAlert.showErrorMessage(
+                'Le nom de la session est existé!'
+              );
+            }
+          },
+          (err: HttpErrorResponse) => {
+            console.log(err);
+            this.isNotValid = false;
+          }
+        );
+      }
+    } else {
+      this.isNotValid = true;
+    }
+  }
+  async getUserById() {
+    (await this.authService.GetUserById()).subscribe((data) => {
+      this.currentUser = data;
+    });
+  }
+  onCancel() {
+    this.sessionDetail = new SessionModel();
+  }
+}

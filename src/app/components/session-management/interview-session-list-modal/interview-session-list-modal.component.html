@@ -1,0 +1,72 @@
+<div class="modal-content">
+    <div class="modal-header bg-info">
+        <h4 class="modal-title">Liste des entretiens</h4>
+        <button type="button" class="close" aria-label="Close" (click)="activeModal.close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div class="card mt-3">
+            <!-- <div class="card-content"> -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th class="text-center">
+                                    Session
+                                </th>
+                                <th class="text-center">
+                                    Formation
+                                </th>
+                                <th class="text-center">
+                                    Candidat
+                                </th>
+                                <th class="text-center">
+                                    Heure
+                                </th>
+                                <th class="text-center">
+                                    Détail Entretien
+                                </th>
+                                <th class="text-center">
+                                    Annuler entretien
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let interview of interviewList">
+                                <td class="py-1 text-center">
+                                    <ngb-highlight [result]="interview.liB_SESSION"></ngb-highlight>
+                                </td>
+                                <td class="text-center">
+                                    <ngb-highlight [result]="interview.liB_FORMATION"></ngb-highlight>
+                                </td>
+                                <td class="text-center">
+                                    <ngb-highlight [result]="interview.identitE_CANDIDAT"></ngb-highlight>
+                                </td>
+                                <td class="text-center">
+                                    <ngb-highlight [result]="interview.heurE_ENTRETIEN"></ngb-highlight>
+                                </td>
+                                <td class="text-center">
+                                    <a routerLink="/interview-management/detail-interview/{{interview.iD_ENTRETIEN}}" (click)="activeModal.close()">
+                                        <i class="fa-solid fa-eye"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <a >
+                                        <i class="fa-solid fa-circle-xmark"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- </div> -->
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-raised btn-danger" (click)="activeModal.close()">
+            <span></span> Close
+        </button>
+    </div>
+</div>

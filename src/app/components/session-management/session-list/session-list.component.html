@@ -1,0 +1,130 @@
+<div class="content-header">
+  Liste des sessions
+</div>
+<form class="form" autocomplete="off" novalidate #formValidation="ngForm" (ngSubmit)="GetAllSession()">
+  <section>
+    <div class="card card-search mt-3">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="form-section">
+            <i class="mdi mdi-filter"></i>Critère de recherche
+          </div>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label class="label-control" for="session">Session</label>
+              <input class="form-control" type="text" name="session" id="session" [(ngModel)]="sessionSearch.session"
+                #session="ngModel">
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateDebut">Date Début</label>
+              <input class="form-control" type="date" name="dateDebut" id="dateDebut"
+                [(ngModel)]="sessionSearch.dateDebut" #dateDebut="ngModel" onkeydown="return false">
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateFin">Date Fin</label>
+              <input class="form-control" type="date" name="dateFin" id="dateFin" [(ngModel)]="sessionSearch.dateFin"
+                #dateFin="ngModel" onkeydown="return false" >
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="annule">Annulé</label>
+              <ng-select [items]="ouiNonList" name="annule" id="annule" binValue="value" bindLabel="text" [(ngModel)]="sessionSearch.estAnnule"
+               placeholder="Oui ou Non" [searchable]="false"></ng-select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-block search-footer-color">
+        <div class="float-right mr-5 mb-2">
+          <button type="submit" class="btn btn-raised btn-primary">
+            <span class="ft-search"></span>Chercher
+          </button>
+        </div>
+        <div class="float-right mr-2 mb-2">
+          <button type="button" class="btn btn-raised btn-warning" (click)="onCancelSearch()">
+            <span class="ft-file"></span>
+            Annuler
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="card mt-3">
+      <div class="card-content">
+        <div class="card-body">
+          <div class="card-block">
+            <form>
+              <div class="input-group">
+                <div>
+                  <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré par</span>
+                </div>
+                <input type='text' class="form-control" placeholder="Recherche..." [formControl]="searchTerm" />
+
+              </div>
+            </form>
+
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th class="text-center">
+                      Session
+                    </th>
+                    <th class="text-center">
+                      Date début
+                    </th>
+                    <th class="text-center">
+                      Date fin
+                    </th>
+                    <th class="text-center">
+                      Ajouter entretien
+                    </th>
+                    <th class="text-center">
+                      Consulter les Entretiens
+                    </th>
+                    <th class="text-center">
+                      Annuler session
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let session of sessionListFiltered ">
+                    <td class="py-1 text-center">
+                      <ngb-highlight [result]="session.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      {{session.datE_DEBUT | date: dateShortDisplayFormat}}
+                    </td>
+                    <td class="text-center">
+                      {{session.datE_FIN | date: dateShortDisplayFormat}}
+                    </td>
+                    <td class="text-center">
+                      <a routerLink="/interview-management/adding-interview/{{session.iD_SESSION}}">
+                        <i class="fa-solid fa-circle-plus"></i>
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a (click)="openModalListInterviewSession(session.iD_SESSION)">
+                        <i class="fa-solid fa-circle-info"></i>
+                      </a>
+                    </td>
+                    <td class="text-center">
+                      <a  (click)="onCancelSession(session)">
+                        <li class="fa-solid fa-circle-xmark"></li>
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-between p-2 float-right">
+                <ngb-pagination [collectionSize]="sessionListFiltered.length" [pageSize]="10" [page]="1"
+                  aria-label="Default pagination" class="d-flex justify-content-end pagination-primary">
+                </ngb-pagination>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>

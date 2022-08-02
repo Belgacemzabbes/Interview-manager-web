@@ -1,0 +1,8 @@
+/* You can add global styles to this file, and also import other style files */
+.card-search{
+    background: rgb(209,224,238);
+  background: linear-gradient(90deg, rgba(209,224,238,1) 0%, rgba(204,211,218,1) 42%, rgba(146,170,193,1) 100%);
+  }
+  .modal-xl .modal-lg {
+    max-width: 75%;
+  }

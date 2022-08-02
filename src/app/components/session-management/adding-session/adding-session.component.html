@@ -1,0 +1,75 @@
+<form class="form" #formValidation="ngForm" novalidate autocomplete="off" (ngSubmit)="AddSession(formValidation)">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="title">Ajouter session</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="label-control" [ngClass]="{
+              'text-danger': libSession.invalid && isNotValid
+            }" for="session">Session *</label>
+                    <input class="form-control" type="text" name="session" id="session"
+                        [(ngModel)]="sessionDetail.liB_SESSION" #libSession="ngModel" required />
+                    <small class="text-danger" *ngIf="libSession.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="dateDebut" [ngClass]="{
+              'text-danger': dateDebut.invalid && isNotValid
+            }">Date Début *</label>
+                    <input class="form-control" type="date" name="dateDebut" id="dateDebut"
+                        [(ngModel)]="sessionDetail.datE_DEBUT" #dateDebut="ngModel" onkeydown="return false" required />
+                    <small class="text-danger" *ngIf="dateDebut.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="dateFin" [ngClass]="{
+              'text-danger': dateFin.invalid && isNotValid
+            }">Date Fin *</label>
+                    <input class="form-control" type="date" name="dateFin" id="dateFin"
+                        [(ngModel)]="sessionDetail.datE_FIN" #dateFin="ngModel" onkeydown="return false" required />
+                    <small class="text-danger" *ngIf="dateFin.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="label-control" for="user">User</label>
+                    <input class="form-control" type="text" name="user" id="user" [(ngModel)]="currentUser.noM_USER"
+                        #user="ngModel" disabled />
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="etablissement" [ngClass]="{
+              'text-danger': etablissement.invalid && isNotValid
+            }">Etablissement *</label>
+                    <ng-select [items]="etablissementList" name="etablissement" bindValue="iD_ETABLISSEMENT"
+                        bindLabel="liB_ETABLISSEMENT" [(ngModel)]="sessionDetail.iD_ETABLISSEMENT"
+                        #etablissement="ngModel" required>
+                    </ng-select>
+                    <small class="text-danger" *ngIf="etablissement.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <!-- <div class="col-md-4">
+                    <label class="label-control" for="dateFin">Date Création</label>
+                    <input class="form-control " type="date" name="dateCreation" id="dateCreation"
+                        [(ngModel)]="sessionDetail.datE_CREATION" #dateCreation="ngModel">
+                </div> -->
+            </div>
+        </div>
+        <div class="card-footer">
+            <div>
+                <button class="btn btn-danger float-right" type="button">
+                    Annuler
+                </button>
+                <button class="btn btn-info float-right mr-2" type="submit">
+                    Ajouter
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
