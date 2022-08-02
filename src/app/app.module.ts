@@ -11,10 +11,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TodoComponent } from './apps/todo-list/todo/todo.component';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
 import { ContentAnimateDirective } from './shared/directives/content-animate.directive';
-import { TodoListComponent } from './apps/todo-list/todo-list.component';
 import { FullLayoutComponent } from './layouts/full-layout/full-layout.component';
 import { ContentLayoutComponent } from './layouts/content-layout/content-layout.component';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -90,8 +88,6 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NavbarComponent,
     SidebarComponent,
     FooterComponent,
-    TodoListComponent,
-    TodoComponent,
     SpinnerComponent,
     ContentAnimateDirective,
     FullLayoutComponent,
