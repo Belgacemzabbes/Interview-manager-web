@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import {
@@ -25,9 +26,10 @@ export class AddingInterviewComponent implements OnInit {
   public formationDetail: FormationDetailModel;
   public candidatDetail: CandidateModel = new CandidateModel();
   public interview: InterviewAddModel = new InterviewAddModel();
-  public candidatId: any;
-  public formationId: any;
-  private id: any;
+  public isNotValid: boolean = false;
+  public candidatId: number;
+  public formationId: number;
+  private id: number;
   constructor(
     private sessionService: SessionService,
     private router: ActivatedRoute,
@@ -72,14 +74,25 @@ export class AddingInterviewComponent implements OnInit {
       this.candidatList.find((c) => c.iD_CANDIDAT == this.candidatId) ??
       new CandidateModel();
   }
-  public async addInterview() {
-    this.interview.iD_SESSION = this.sessionDetail.iD_SESSION;
-    this.interview.iD_CANDIDAT = this.candidatDetail.iD_CANDIDAT;
-    this.interview.iD_FORMATION = this.formationDetail.iD_FORMATION;
-    this.interview.iD_ETABLISSEMENT = this.sessionDetail.iD_ETABLISSEMENT;
-    this.interview.heurE_ENTRETIEN.toString();
-    this.interviewService.AddInterview(this.interview).then((data) => {
-      this.toastrService.displaySuccessMessage('Ajouté avec succés');
-    });
+  public async addInterview(formValidation: NgForm) {
+    if(formValidation.valid){
+      this.interview.iD_SESSION = this.sessionDetail.iD_SESSION;
+      this.interview.iD_CANDIDAT = this.candidatDetail.iD_CANDIDAT;
+      this.interview.iD_FORMATION = this.formationDetail.iD_FORMATION;
+      this.interview.iD_ETABLISSEMENT = this.sessionDetail.iD_ETABLISSEMENT;
+      this.interview.datE_ENTRETIEN = this.sessionDetail.datE_SESSION;
+      this.interview.heurE_ENTRETIEN.toString();
+      this.interviewService.AddInterview(this.interview).then((data) => {
+        this.toastrService.displaySuccessMessage('Ajouté avec succés');
+        this.interview = new InterviewAddModel();
+        this.formationDetail = new FormationDetailModel();
+        this.candidatDetail = new CandidateModel();
+        this.candidatId= null;
+        this.formationId= null;
+        this.isNotValid = false;
+      });
+    } else {
+      this.isNotValid = true
+    }
   }
 }

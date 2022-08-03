@@ -23,6 +23,7 @@ export class AddingSessionComponent implements OnInit {
   public currentUser: UserModel;
   public isNotValid: boolean = false;
   public dateDiff: any;
+  private dateNow = new Date()
   constructor(
     private etablissementService: EtablissementService,
     private sessionService: SessionService,
@@ -44,20 +45,24 @@ export class AddingSessionComponent implements OnInit {
       this.etablissementList = data;
     });
   }
+  private addDays(days: number){
+    const dateTransfomed = new Date() 
+    return this.datePipe.transform(dateTransfomed.setDate(dateTransfomed.getDate() + days), 'dd-MM-yyyy')  ;
+  }
   async AddSession(formValidation: NgForm) {
     if (formValidation.valid) {
-      if (!!this.sessionDetail.datE_FIN && !!this.sessionDetail.datE_DEBUT) {
+      if (!!this.sessionDetail.datE_SESSION) {
         this.dateDiff =
           Number(
-            this.datePipe.transform(this.sessionDetail.datE_FIN, 'yyyyMMdd')
+            this.datePipe.transform(this.sessionDetail.datE_SESSION, 'yyyyMMdd')
           ) -
           Number(
-            this.datePipe.transform(this.sessionDetail.datE_DEBUT, 'yyyyMMdd')
+            this.datePipe.transform(new Date(), 'yyyyMMdd')
           );
       }
-      if (this.dateDiff < 0) {
+      if (this.dateDiff <= 0) {
         this.sweetAlert.showErrorMessage(
-          'La date fin doit être supèrieur à la date début!'
+          `La date de la session ne peut pas être avant \n le ${this.addDays(1)}!`, 
         );
       } else {
         this.sessionDetail.iD_USER = this.currentUser.iD_USER;
@@ -90,5 +95,6 @@ export class AddingSessionComponent implements OnInit {
   }
   onCancel() {
     this.sessionDetail = new SessionModel();
+    this.isNotValid = false;
   }
 }

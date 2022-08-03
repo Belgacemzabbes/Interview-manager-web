@@ -1,7 +1,7 @@
 <div class="content-header">
     Ajouter entretien
 </div>
-<form class="form" autocomplete="off" novalidate (ngSubmit)="addInterview()">
+<form class="form" autocomplete="off" novalidate (ngSubmit)="addInterview(FormValidation)" #FormValidation="ngForm">
     <section>
         <div class="card card-search mt-3">
             <div class="card-body">
@@ -17,15 +17,15 @@
                                 [(ngModel)]="sessionDetail.liB_SESSION" disabled>
                         </div>
                         <div class="col-4">
-                            <label class="label-control" for="dateDebut">Date Début</label>
-                            <input class="form-control" type="text" name="dateDebut" id="dateDebut"
-                                [ngModel]="sessionDetail.datE_DEBUT | date: 'dd-MM-yyyy'" disabled>
+                            <label class="label-control" for="dateSession">Date Session</label>
+                            <input class="form-control" type="text" name="dateSession" id="dateSession"
+                                [ngModel]="sessionDetail.datE_SESSION | date: 'dd-MM-yyyy'" disabled>
                         </div>
-                        <div class="col-4">
+                        <!-- <div class="col-4">
                             <label class="label-control" for="dateFin">Date Fin</label>
                             <input class="form-control" type="text" name="dateFin" id="dateFin"
                                 [ngModel]="sessionDetail.datE_FIN | date: 'dd-MM-yyyy'" disabled>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -53,11 +53,16 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label class="label-control " for="candidat">Candidat</label>
+                                <label class="label-control " for="candidat" [ngClass]="{
+                                    'text-danger': candidat.invalid && isNotValid
+                                  }">Candidat</label>
                                 <ng-select [items]="candidatList" name="candidat" bindValue="iD_CANDIDAT"
                                     bindLabel="identitE_CANDIDAT" placeholder="Choisir un candidat"
-                                    [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidat($event)">
+                                    [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidat($event)" #candidat="ngModel" required>
                                 </ng-select>
+                                <small class="text-danger" *ngIf="candidat.invalid && isNotValid">
+                                    Champ obligatoire
+                                </small>
                             </div>
 
                         </div>
@@ -112,16 +117,26 @@
                     <div class="col-md-6">
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label class="label-control" for="formation">Formation</label>
+                                <label class="label-control" for="formation" [ngClass]="{
+                                    'text-danger': formation.invalid && isNotValid
+                                  }">Formation</label>
                                 <ng-select [items]="formationList" name="formation" id="formationList"
                                     bindValue="iD_FORMATION" bindLabel="liB_FORMATION"
-                                    placeholder="Choisir une formation" [(ngModel)]="formationId"
-                                    (ngModelChange)="onChangeFormation()">
+                                    placeholder="Choisir une formation" [(ngModel)]="formationId" #formation="ngModel"
+                                    (ngModelChange)="onChangeFormation()" required>
                                 </ng-select>
+                                <small class="text-danger" *ngIf="formation.invalid && isNotValid">
+                                    Champ obligatoire
+                                </small>
                             </div>
                             <div class="col-md-6">
-                                <label class="label-control" for="heure">Heure</label>
-                                <input class="form-control" type="time" name="heure" id="heure" [(ngModel)]="interview.heurE_ENTRETIEN">
+                                <label class="label-control" for="heure" [ngClass]="{
+                                    'text-danger': heure.invalid && isNotValid
+                                  }">Heure</label>
+                                <input class="form-control" type="time" name="heure" id="heure" #heure="ngModel"  [(ngModel)]="interview.heurE_ENTRETIEN" required>
+                                <small class="text-danger" *ngIf="heure.invalid && isNotValid">
+                                    Champ obligatoire
+                                </small>
                             </div>
                         </div>
                         <div class="form-section">

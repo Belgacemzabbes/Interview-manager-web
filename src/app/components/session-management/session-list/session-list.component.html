@@ -10,22 +10,17 @@
             <i class="mdi mdi-filter"></i>Critère de recherche
           </div>
           <div class="form-group row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="label-control" for="session">Session</label>
               <input class="form-control" type="text" name="session" id="session" [(ngModel)]="sessionSearch.session"
                 #session="ngModel">
             </div>
-            <div class="col-md-3">
-              <label class="label-control" for="dateDebut">Date Début</label>
-              <input class="form-control" type="date" name="dateDebut" id="dateDebut"
-                [(ngModel)]="sessionSearch.dateDebut" #dateDebut="ngModel" onkeydown="return false">
+            <div class="col-md-4">
+              <label class="label-control" for="dateSession">Date Début</label>
+              <input class="form-control" type="date" name="dateSession" id="dateSession"
+                [(ngModel)]="sessionSearch.dateSession" #dateDebut="ngModel" onkeydown="return false">
             </div>
-            <div class="col-md-3">
-              <label class="label-control" for="dateFin">Date Fin</label>
-              <input class="form-control" type="date" name="dateFin" id="dateFin" [(ngModel)]="sessionSearch.dateFin"
-                #dateFin="ngModel" onkeydown="return false" >
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="label-control" for="annule">Annulé</label>
               <ng-select [items]="ouiNonList" name="annule" id="annule" binValue="value" bindLabel="text" [(ngModel)]="sessionSearch.estAnnule"
                placeholder="Oui ou Non" [searchable]="false"></ng-select>
@@ -71,10 +66,7 @@
                       Session
                     </th>
                     <th class="text-center">
-                      Date début
-                    </th>
-                    <th class="text-center">
-                      Date fin
+                      Date session
                     </th>
                     <th class="text-center">
                       Ajouter entretien
@@ -93,10 +85,7 @@
                       <ngb-highlight [result]="session.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
                     </td>
                     <td class="text-center">
-                      {{session.datE_DEBUT | date: dateShortDisplayFormat}}
-                    </td>
-                    <td class="text-center">
-                      {{session.datE_FIN | date: dateShortDisplayFormat}}
+                      {{session.datE_SESSION | date: dateShortDisplayFormat}}
                     </td>
                     <td class="text-center">
                       <a routerLink="/interview-management/adding-interview/{{session.iD_SESSION}}">

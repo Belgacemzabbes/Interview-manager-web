@@ -5,27 +5,27 @@
         </div>
         <div class="card-body">
             <div class="form-group row">
-                <div class="col-md-4">
-                    <label class="label-control" [ngClass]="{
+                
+                    <label class="label-control col-md-2 text-right" [ngClass]="{
               'text-danger': libSession.invalid && isNotValid
-            }" for="session">Session *</label>
-                    <input class="form-control" type="text" name="session" id="session"
+            }" for="session">Session *</label><div class="col-md-4">
+                    <input class="form-control " type="text" name="session" id="session"
                         [(ngModel)]="sessionDetail.liB_SESSION" #libSession="ngModel" required />
                     <small class="text-danger" *ngIf="libSession.invalid && isNotValid">
                         Champ obligatoire
                     </small>
                 </div>
-                <div class="col-md-4">
-                    <label class="label-control" for="dateDebut" [ngClass]="{
-              'text-danger': dateDebut.invalid && isNotValid
-            }">Date Début *</label>
-                    <input class="form-control" type="date" name="dateDebut" id="dateDebut"
-                        [(ngModel)]="sessionDetail.datE_DEBUT" #dateDebut="ngModel" onkeydown="return false" required />
-                    <small class="text-danger" *ngIf="dateDebut.invalid && isNotValid">
+                
+                    <label class="label-control col-md-2 text-right" for="dateSession" [ngClass]="{
+              'text-danger': dateSession.invalid && isNotValid
+            }">Date session *</label><div class="col-md-4">
+                    <input class="form-control" type="date" name="dateSession" id="dateSession"
+                        [(ngModel)]="sessionDetail.datE_SESSION" #dateSession="ngModel" onkeydown="return false" required />
+                    <small class="text-danger" *ngIf="dateSession.invalid && isNotValid">
                         Champ obligatoire
                     </small>
                 </div>
-                <div class="col-md-4">
+                <!-- <div class="col-md-4">
                     <label class="label-control" for="dateFin" [ngClass]="{
               'text-danger': dateFin.invalid && isNotValid
             }">Date Fin *</label>
@@ -34,18 +34,18 @@
                     <small class="text-danger" *ngIf="dateFin.invalid && isNotValid">
                         Champ obligatoire
                     </small>
-                </div>
+                </div> -->
             </div>
             <div class="form-group row">
-                <div class="col-md-4">
-                    <label class="label-control" for="user">User</label>
+               
+                    <label class="label-control col-md-2 text-right" for="user">User</label> <div class="col-md-4">
                     <input class="form-control" type="text" name="user" id="user" [(ngModel)]="currentUser.noM_USER"
                         #user="ngModel" disabled />
                 </div>
-                <div class="col-md-4">
-                    <label class="label-control" for="etablissement" [ngClass]="{
+                
+                    <label class="label-control col-md-2 text-right" for="etablissement" [ngClass]="{
               'text-danger': etablissement.invalid && isNotValid
-            }">Etablissement *</label>
+            }">Etablissement *</label><div class="col-md-4">
                     <ng-select [items]="etablissementList" name="etablissement" bindValue="iD_ETABLISSEMENT"
                         bindLabel="liB_ETABLISSEMENT" [(ngModel)]="sessionDetail.iD_ETABLISSEMENT"
                         #etablissement="ngModel" required>
@@ -63,7 +63,7 @@
         </div>
         <div class="card-footer">
             <div>
-                <button class="btn btn-danger float-right" type="button">
+                <button class="btn btn-danger float-right" type="button" (click)="onCancel()">
                     Annuler
                 </button>
                 <button class="btn btn-info float-right mr-2" type="submit">

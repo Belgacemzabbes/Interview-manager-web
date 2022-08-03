@@ -8,22 +8,17 @@
             <i class="mdi mdi-filter"></i>Critère de recherche
           </div>
           <div class="form-group row">
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="label-control" for="session">Session</label>
               <input class="form-control" type="text" name="session" id="session"
                 [(ngModel)]="interviewSearch.session" />
             </div>
-            <div class="col-md-3">
-              <label class="label-control" for="dateDebut">Date Début</label>
-              <input class="form-control" type="date" name="dateDebut" id="dateDebut"
-                [(ngModel)]="interviewSearch.dateDebut" onkeydown="return false"/>
+            <div class="col-md-4">
+              <label class="label-control" for="dateSession">Date Session</label>
+              <input class="form-control" type="date" name="dateSession" id="dateSession"
+                [(ngModel)]="interviewSearch.dateSession" onkeydown="return false"/>
             </div>
-            <div class="col-md-3">
-              <label class="label-control" for="dateFin">Date Fin</label>
-              <input class="form-control" type="date" name="dateFin" id="dateFin"
-                [(ngModel)]="interviewSearch.dateFin" onkeydown="return false"/>
-            </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <label class="label-control" for="annule">Annulé</label>
               <ng-select [items]="ouiNonList" name="annule" id="annule" binValue="value" bindLabel="text" [(ngModel)]="interviewSearch.estAnnule"
                placeholder="Oui ou Non" [searchable]="false"></ng-select>
@@ -67,6 +62,7 @@
                     <th class="text-center">Formation</th>
                     <th class="text-center">Candidat</th>
                     <th class="text-center">Heure</th>
+                    <th class="text-center">Date</th>
                     <th class="text-center">Détail Entretien</th>
                     <th class="text-center">Annuler entretien</th>
                   </tr>
@@ -84,6 +80,9 @@
                     </td>
                     <td class="text-center">
                       <ngb-highlight [result]="interview.heurE_ENTRETIEN" [term]="searchTerm.value"></ngb-highlight>
+                    </td>
+                    <td class="text-center">
+                      {{interview.datE_ENTRETIEN | date: dateShortDisplayFormat}}
                     </td>
                     <td class="text-center">
                       <!-- <a class="mdi mdi-eye font-weight-medium primary"></a> -->

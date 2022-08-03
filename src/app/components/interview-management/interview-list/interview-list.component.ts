@@ -43,27 +43,27 @@ export class InterviewListComponent implements OnInit {
     this.getAllInterviewBySearchCriteria();
   }
   public async getAllInterviewBySearchCriteria() {
-    if (!!this.interviewSearch.dateFin && !!this.interviewSearch.dateDebut) {
-      this.dateDiff =
-        Number(
-          this.datePipe.transform(this.interviewSearch.dateFin, 'yyyyMMdd')
-        ) -
-        Number(
-          this.datePipe.transform(this.interviewSearch.dateDebut, 'yyyyMMdd')
-        );
-    }
-    if (this.dateDiff < 0) {
-      this.sweetAlert.showErrorMessage(
-        'La date fin doit être supèrieur à la date début!'
-      );
-    } else {
+    // if (!!this.interviewSearch.dateFin && !!this.interviewSearch.dateDebut) {
+    //   this.dateDiff =
+    //     Number(
+    //       this.datePipe.transform(this.interviewSearch.dateFin, 'yyyyMMdd')
+    //     ) -
+    //     Number(
+    //       this.datePipe.transform(this.interviewSearch.dateDebut, 'yyyyMMdd')
+    //     );
+    // }
+    // if (this.dateDiff < 0) {
+    //   this.sweetAlert.showErrorMessage(
+    //     'La date fin doit être supèrieur à la date début!'
+    //   );
+    // } else {
       this.interviewService
         .GetAllInterviewBySearchCriteria(this.interviewSearch)
         .subscribe((data) => {
           this.interviewList = data;
           this.interviewListFiltered = data;
         });
-    }
+    // }
   }
   public onCancelEntretien(entretien: InterviewDetailModel) {
     this.sweetAlert

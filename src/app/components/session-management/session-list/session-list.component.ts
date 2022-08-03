@@ -52,27 +52,27 @@ export class SessionListComponent implements OnInit {
   }
 
   public async GetAllSession() {
-    if (!!this.sessionSearch.dateFin && !!this.sessionSearch.dateDebut) {
-      this.dateDiff =
-        Number(
-          this.datePipe.transform(this.sessionSearch.dateFin, 'yyyyMMdd')
-        ) -
-        Number(
-          this.datePipe.transform(this.sessionSearch.dateDebut, 'yyyyMMdd')
-        );
-    }
-    if (this.dateDiff < 0) {
-      this.sweetAlert.showErrorMessage(
-        'La date fin doit être supèrieur à la date début!'
-      );
-    } else {
+    // if (!!this.sessionSearch.dateFin && !!this.sessionSearch.dateDebut) {
+    //   this.dateDiff =
+    //     Number(
+    //       this.datePipe.transform(this.sessionSearch.dateFin, 'yyyyMMdd')
+    //     ) -
+    //     Number(
+    //       this.datePipe.transform(this.sessionSearch.dateDebut, 'yyyyMMdd')
+    //     );
+    // }
+    // if (this.dateDiff < 0) {
+    //   this.sweetAlert.showErrorMessage(
+    //     'La date fin doit être supèrieur à la date début!'
+    //   );
+    // } else {
       this.sessionService
         .GetAllSession(this.sessionSearch)
         .subscribe((data) => {
           this.sessionList = data;
           this.sessionListFiltered = data;
         });
-    }
+    // }
   }
   public onCancelSession(session: SessionModel) {
     this.sweetAlert
@@ -99,15 +99,12 @@ export class SessionListComponent implements OnInit {
     this.sessionSearch = new SessionSearchModel();
     this.GetAllSession();
   }
-  public async getAllInterviewBySessionId(idSession: number) {
-    this.interviewService
-      .GetAllInterviewBySesssionId(idSession)
-      .subscribe((data) => {
-        this.interviewList = data;
-      });
-  }
+  
   public openModalListInterviewSession(idSession: number) {
-    this.getAllInterviewBySessionId(idSession).then((data) => {
+    this.interviewService
+    .GetAllInterviewBySesssionId(idSession)
+    .subscribe((data) => {
+      this.interviewList = data;
       if (this.interviewList.length == 0) {
         this.sweetAlert.showErrorMessage("Il n'y a aucun entretien!");
       } else {

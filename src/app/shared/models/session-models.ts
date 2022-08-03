@@ -1,8 +1,7 @@
 export class SessionModel {
     iD_SESSION: number;
     liB_SESSION: string;
-    datE_DEBUT: string;
-    datE_FIN: string;
+    datE_SESSION: string;
     datE_CREATION: Date;
     iD_ETABLISSEMENT: number;
     iD_USER: number;
@@ -13,7 +12,6 @@ export class SessionModel {
 }
 export class SessionSearchModel {
     session: string;
-    dateDebut: Date;
-    dateFin: Date;
+    dateSession: Date;
     estAnnule: number
 }

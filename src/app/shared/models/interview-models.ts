@@ -4,6 +4,8 @@ export class InterviewAddModel {
   iD_SESSION: number;
   iD_ETABLISSEMENT: number;
   heurE_ENTRETIEN: string;
+  datE_ENTRETIEN: string;
+  esT_ANNULE: number;
 }
 export class InterviewDetailModel {
   iD_ENTRETIEN: number;
@@ -14,8 +16,8 @@ export class InterviewDetailModel {
   iD_MOUVEMENT: number;
   iD_SESSION: number;
   liB_SESSION: string;
-  datE_DEBUT: string;
-  datE_FIN: string;
+  datE_SESSION: string;
+  datE_ENTRETIEN: string;
   heurE_ENTRETIEN: string;
   esT_ANNULE: boolean;
   iD_CANDIDAT: number;
@@ -36,7 +38,6 @@ export class InterviewDetailModel {
 }
 export class InterviewSearchModel {
   session: string;
-  dateDebut: Date;
-  dateFin: Date;
+  dateSession: Date;
   estAnnule: number;
 }
