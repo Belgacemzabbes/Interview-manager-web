@@ -1,7 +1,11 @@
-<div class="content-header">
-  Liste des sessions
-</div>
-<form class="form" autocomplete="off" novalidate #formValidation="ngForm" (ngSubmit)="GetAllSession()">
+<div class="content-header">Liste des sessions</div>
+<form
+  class="form"
+  autocomplete="off"
+  novalidate
+  #formValidation="ngForm"
+  (ngSubmit)="GetAllSession()"
+>
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
@@ -12,18 +16,39 @@
           <div class="form-group row">
             <div class="col-md-4">
               <label class="label-control" for="session">Session</label>
-              <input class="form-control" type="text" name="session" id="session" [(ngModel)]="sessionSearch.session"
-                #session="ngModel">
+              <input
+                class="form-control"
+                type="text"
+                name="session"
+                id="session"
+                [(ngModel)]="sessionSearch.session"
+                #session="ngModel"
+              />
             </div>
             <div class="col-md-4">
               <label class="label-control" for="dateSession">Date Début</label>
-              <input class="form-control" type="date" name="dateSession" id="dateSession"
-                [(ngModel)]="sessionSearch.dateSession" #dateDebut="ngModel" onkeydown="return false">
+              <input
+                class="form-control"
+                type="date"
+                name="dateSession"
+                id="dateSession"
+                [(ngModel)]="sessionSearch.dateSession"
+                #dateDebut="ngModel"
+                onkeydown="return false"
+              />
             </div>
             <div class="col-md-4">
               <label class="label-control" for="annule">Annulé</label>
-              <ng-select [items]="ouiNonList" name="annule" id="annule" binValue="value" bindLabel="text" [(ngModel)]="sessionSearch.estAnnule"
-               placeholder="Oui ou Non" [searchable]="false"></ng-select>
+              <ng-select
+                [items]="ouiNonList"
+                name="annule"
+                id="annule"
+                binValue="value"
+                bindLabel="text"
+                [(ngModel)]="sessionSearch.estAnnule"
+                placeholder="Oui ou Non"
+                [searchable]="false"
+              ></ng-select>
             </div>
           </div>
         </div>
@@ -35,7 +60,11 @@
           </button>
         </div>
         <div class="float-right mr-2 mb-2">
-          <button type="button" class="btn btn-raised btn-warning" (click)="onCancelSearch()">
+          <button
+            type="button"
+            class="btn btn-raised btn-warning"
+            (click)="onCancelSearch()"
+          >
             <span class="ft-file"></span>
             Annuler
           </button>
@@ -51,64 +80,114 @@
             <form>
               <div class="input-group">
                 <div>
-                  <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré par</span>
+                  <span
+                    class="mdi mdi-filter input-group-text form-control"
+                    id="sizing-addon1"
+                    >Filtré par</span
+                  >
                 </div>
-                <input type='text' class="form-control" placeholder="Recherche..." [formControl]="searchTerm" />
-
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Recherche..."
+                  [formControl]="searchTerm"
+                />
               </div>
             </form>
 
             <div class="table-responsive">
               <table class="table table-striped">
+                <caption>
+                  <div class="float-left">
+                    {{ sessionListFiltered.length }} élements trouvés
+                  </div>
+                  <div class="float-right">
+                    Page {{ paginationConfig.page }}
+                  </div>
+                </caption>
                 <thead>
                   <tr>
-                    <th class="text-center">
-                      Session
-                    </th>
-                    <th class="text-center">
-                      Date session
-                    </th>
-                    <th class="text-center">
-                      Ajouter entretien
-                    </th>
-                    <th class="text-center">
-                      Consulter les Entretiens
-                    </th>
-                    <th class="text-center">
-                      Annuler session
-                    </th>
+                    <th class="text-center">Session</th>
+                    <th class="text-center">Date session</th>
+                    <th class="text-center">Ajouter entretien</th>
+                    <th class="text-center">Consulter les Entretiens</th>
+                    <th class="text-center">Annuler session</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let session of sessionListFiltered ">
+                  <tr
+                    *ngFor="
+                      let session of sessionListFiltered
+                        | slice
+                          : (paginationConfig.page - 1) *
+                              paginationConfig.pageSize
+                          : paginationConfig.page * paginationConfig.pageSize
+                    "
+                  >
                     <td class="py-1 text-center">
-                      <ngb-highlight [result]="session.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
+                      <ngb-highlight
+                        [result]="session.liB_SESSION"
+                        [term]="searchTerm.value"
+                      ></ngb-highlight>
                     </td>
                     <td class="text-center">
-                      {{session.datE_SESSION | date: dateShortDisplayFormat}}
+                      {{ session.datE_SESSION | date: dateShortDisplayFormat }}
                     </td>
                     <td class="text-center">
-                      <a routerLink="/interview-management/adding-interview/{{session.iD_SESSION}}">
+                      <a
+                        routerLink="/interview-management/adding-interview/{{
+                          session.iD_SESSION
+                        }}"
+                      >
                         <i class="fa-solid fa-circle-plus"></i>
                       </a>
                     </td>
                     <td class="text-center">
-                      <a (click)="openModalListInterviewSession(session.iD_SESSION)">
+                      <a
+                        (click)="
+                          openModalListInterviewSession(session.iD_SESSION)
+                        "
+                      >
                         <i class="fa-solid fa-circle-info"></i>
                       </a>
                     </td>
                     <td class="text-center">
-                      <a  (click)="onCancelSession(session)">
+                      <a (click)="onCancelSession(session)">
                         <li class="fa-solid fa-circle-xmark"></li>
                       </a>
                     </td>
                   </tr>
                 </tbody>
               </table>
-              <div class="d-flex justify-content-between p-2 float-right">
+              <!-- <div class="d-flex justify-content-between p-2 float-right">
                 <ngb-pagination [collectionSize]="sessionListFiltered.length" [pageSize]="10" [page]="1"
                   aria-label="Default pagination" class="d-flex justify-content-end pagination-primary">
                 </ngb-pagination>
+              </div> -->
+              <div class="d-flex justify-content-between p-2">
+                <ngb-pagination
+                  #pagination
+                  [(page)]="paginationConfig.page"
+                  [pageSize]="paginationConfig.pageSize"
+                  [collectionSize]="sessionListFiltered.length"
+                  [rotate]="true"
+                  [maxSize]="paginationConfig.maxSize"
+                  [boundaryLinks]="true"
+                >
+                </ngb-pagination>
+                <select
+                  [(ngModel)]="paginationConfig.pageSize"
+                  class="custom-select"
+                  style="width: auto"
+                  name="pageSize"
+                >
+                  <option
+                    *ngFor="let size of pageSizeList"
+                    [value]="size.value"
+                  >
+                    {{ size.value }} {{ "Items par page" }}
+                  </option>
+                </select>
               </div>
             </div>
           </div>

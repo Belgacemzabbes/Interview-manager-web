@@ -1,7 +1,9 @@
 import { AfterViewChecked, AfterViewInit, Component, DoCheck, Input, OnInit } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { PageSizeEnumList } from 'src/app/shared/Enumerators/Enums';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
@@ -12,6 +14,8 @@ import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 })
 export class InterviewSessionListModalComponent implements OnInit{
   public interviewList: InterviewDetailModel[] = [];
+  public paginationConfig = new PaginationConfig();
+  public pageSizeList = PageSizeEnumList;
   constructor(
     public activeModal: NgbActiveModal,
     private interviewService: InterviewService,

@@ -24,7 +24,7 @@ import { CurrencyMaskModule } from 'ng2-currency-mask';
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
-    CurrencyMaskModule
+    CurrencyMaskModule,
   ]
 })
 export class InterviewManagementModule { }

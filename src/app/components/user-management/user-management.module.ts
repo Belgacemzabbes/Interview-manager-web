@@ -15,7 +15,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   imports: [
     CommonModule,
     UserManagementRoutingModule,
-    NgSelectModule
+    NgSelectModule,
   ]
 })
 export class UserManagementModule { }

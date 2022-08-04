@@ -2,12 +2,14 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PageSizeEnumList } from 'src/app/shared/Enumerators/Enums';
 import {
   InterviewDetailModel,
   InterviewSearchModel,
 } from 'src/app/shared/models/interview-models';
 import { SelectListIntStringModel } from 'src/app/shared/models/static-data-models';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 import { DetailInterviewComponent } from '../detail-interview/detail-interview.component';
@@ -22,6 +24,8 @@ export class InterviewListComponent implements OnInit {
   public interviewList: InterviewDetailModel[] = [];
   public interviewListFiltered: InterviewDetailModel[] = [];
   public searchTerm = new FormControl('');
+  public paginationConfig = new PaginationConfig();
+  public pageSizeList = PageSizeEnumList;
   public dateDiff: any;
   public ouiNonList: SelectListIntStringModel[] = [
     { value: 1, text: 'Oui' },

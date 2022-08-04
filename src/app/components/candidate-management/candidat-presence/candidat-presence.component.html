@@ -10,11 +10,11 @@
           <div class="form-group row">
             <div class="col-3">
               <label class="label-control" for="candidat">Candidat</label>
-              <ng-select></ng-select>
+              <ng-select [items]="candidatList" bindValue="iD_CANDIDAT" bindLabel="identitE_CANDIDAT"></ng-select>
             </div>
             <div class="col-3">
               <label class="label-control" for="etat">État</label>
-              <ng-select></ng-select>
+              <ng-select [items]="stateList" bindValue="iD_ETAT" bindLabel="liB_ETAT"></ng-select>
             </div>
             <div class="col-3">
               <label class="label-control" for="email">Email</label>

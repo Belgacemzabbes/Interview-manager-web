@@ -56,6 +56,14 @@
             </form>
             <div class="table-responsive">
               <table class="table table-striped">
+                <caption>
+                  <div class="float-left">
+                    {{ interviewListFiltered.length }} élements trouvés
+                  </div>
+                  <div class="float-right">
+                    Page {{ paginationConfig.page }}
+                  </div>
+                </caption>
                 <thead>
                   <tr>
                     <th class="text-center">Session</th>
@@ -68,7 +76,12 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let interview of interviewListFiltered">
+                  <tr *ngFor="let interview of interviewListFiltered
+                  | slice
+                    : (paginationConfig.page - 1) *
+                        paginationConfig.pageSize
+                    : paginationConfig.page * paginationConfig.pageSize
+              ">
                     <td class="py-1 text-center">
                       <ngb-highlight [result]="interview.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
                     </td>
@@ -100,6 +113,31 @@
                   </tr>
                 </tbody>
               </table>
+              <div class="d-flex justify-content-between p-2">
+                <ngb-pagination
+                  #pagination
+                  [(page)]="paginationConfig.page"
+                  [pageSize]="paginationConfig.pageSize"
+                  [collectionSize]="interviewListFiltered.length"
+                  [rotate]="true"
+                  [maxSize]="paginationConfig.maxSize"
+                  [boundaryLinks]="true"
+                >
+                </ngb-pagination>
+                <select
+                  [(ngModel)]="paginationConfig.pageSize"
+                  class="custom-select"
+                  style="width: auto"
+                  name="pageSize"
+                >
+                  <option
+                    *ngFor="let size of pageSizeList"
+                    [value]="size.value"
+                  >
+                    {{ size.value }} {{ "Items par page" }}
+                  </option>
+                </select>
+              </div>
             </div>
           </div>
         </div>

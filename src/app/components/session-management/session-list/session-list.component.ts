@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, NgForm } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { PageSizeEnumList } from 'src/app/shared/Enumerators/Enums';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import {
   SessionModel,
@@ -9,6 +10,7 @@ import {
 } from 'src/app/shared/models/session-models';
 import { SelectListIntStringModel } from 'src/app/shared/models/static-data-models';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { SessionService } from 'src/app/shared/services/session.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
@@ -26,6 +28,8 @@ export class SessionListComponent implements OnInit {
   public sessionListFiltered: SessionModel[] = [];
   public interviewList: InterviewDetailModel[] = [];
   public searchTerm = new FormControl('');
+  public paginationConfig = new PaginationConfig();
+  public pageSizeList = PageSizeEnumList;
   public dateShortDisplayFormat: any;
   public dateDiff: any;
   public ouiNonList: SelectListIntStringModel[] = [

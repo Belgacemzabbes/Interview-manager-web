@@ -1,7 +1,7 @@
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
   <ul class="nav">
-    <li class="nav-item nav-profile">
-      <!-- <a href="javascript:;" class="nav-link">
+    <!--<li class="nav-item nav-profile">
+       <a href="javascript:;" class="nav-link">
         <div class="nav-profile-image">
           <img src="assets/images/faces/face1.jpg" alt="profile">
           <span class="login-status online"></span>
@@ -12,10 +12,10 @@
           <span class="text-secondary text-small">Project Manager</span>
         </div>
         <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
-      </a>-->
-    </li> 
-    <li class="nav-item" *ngFor="let menu of menuItems" >
-      <a *ngIf="menu.parent == 0" class="nav-link" [ngClass]="{'active' : menu.isActive }" (click)="collapseMenu(menu)" [routerLink]="menu.submenu.length > 0 ? null : [menu.path]" [routerLinkActive]="menu.submenu.length > 0 ? '' : 'active'"  [attr.aria-expanded]="!menu.isCollapsed">
+      </a>
+    </li> -->
+    <!-- <li class="nav-item" *ngFor="let menu of menuItems" >
+      <a *ngIf="menu.parent == 0" class="nav-link" [ngClass]="{'active' : false}" (click)="collapseMenu(menu)" [routerLink]="menu.submenu.length > 0 ? null : [menu.path]" [routerLinkActive]="menu.submenu.length > 0 ? '' : 'active'"  [attr.aria-expanded]="!menu.isCollapsed">
         <span class="menu-title">{{menu.designation}}</span>
         <i class="menu-arrow" *ngIf="menu.class == 'has-sub'"></i>
         <i class="mdi menu-icon" [ngClass]="menu.icon"></i>
@@ -27,30 +27,30 @@
           
         </ul>
       </div>
-    </li>
-    <!-- <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
+    </li> -->
+   <!--   <li class="nav-item" [ngClass]="{ 'active': dashboard.isActive }">
       <a class="nav-link" routerLink="/dashboard" routerLinkActive #dashboard="routerLinkActive">
         <span class="menu-title">Dashboard</span>
         <i class="mdi mdi-home menu-icon"></i>
       </a>
-    </li>
+    </li> -->
     <li class="nav-item" [ngClass]="{'active' : false }">
-      <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" [attr.aria-expanded]="uiBasicCollapsed"
-        aria-controls="ui-basic">
+      <a class="nav-link" (click)="uiBasicCollapsed = !uiBasicCollapsed" >
         <span class="menu-title">Gestion des utilisateurs</span>
         <i class="menu-arrow"></i>
         <i class="mdi mdi-account-multiple menu-icon"></i>
       </a>
-      <div class="collapse" id="ui-basic" [ngbCollapse]="!uiBasicCollapsed">
+      <div class="collapse" [ngbCollapse]="!uiBasicCollapsed">
         <ul class="nav flex-column sub-menu">
           <li class="nav-item"> <a class="nav-link" routerLink="user-management/adding-user" routerLinkActive="active"
-              #accordions="routerLinkActive">Ajout d'utilisateur</a></li>
+              >Ajout d'utilisateur</a></li>
           <li class="nav-item"> <a class="nav-link" routerLink="user-management/users-list" routerLinkActive="active"
-              #buttons="routerLinkActive">Listes des utilisateurs</a></li>
+             >Listes des utilisateurs</a></li>
         </ul>
       </div>
     </li>
-    <li class="nav-item" [ngClass]="{ 'active': false }">
+
+   <!--<li class="nav-item" [ngClass]="{ 'active': false }">
       <a class="nav-link" (click)="gestionSessionCollapsed = !gestionSessionCollapsed"
         [attr.aria-expanded]="gestionSessionCollapsed" aria-controls="gestion-session">
         <span class="menu-title">Gestions des sessions</span>
