@@ -12,6 +12,7 @@ export class InterviewDetailModel {
   iD_ETABLISSEMENT: number;
   liB_ETABLISSEMENT: string;
   iD_ETAT: number;
+  liB_ETAT: string;
   iD_FORMATION_CANDIDAT: number;
   iD_MOUVEMENT: number;
   iD_SESSION: number;
