@@ -12,6 +12,7 @@ import { InterviewService } from 'src/app/shared/services/interview.service';
 import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+import { environment } from 'src/environments/environment';
 import { DetailInterviewComponent } from '../detail-interview/detail-interview.component';
 
 @Component({
@@ -26,6 +27,7 @@ export class InterviewListComponent implements OnInit {
   public searchTerm = new FormControl('');
   public paginationConfig = new PaginationConfig();
   public pageSizeList = PageSizeEnumList;
+  public dateShortDisplayFormat = environment.dateShortDisplayFormat;
   public dateDiff: any;
   public ouiNonList: SelectListIntStringModel[] = [
     { value: 1, text: 'Oui' },

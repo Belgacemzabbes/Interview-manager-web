@@ -14,7 +14,8 @@ export enum EtatEntretienENum{
     Presence = "Présent",
     Preinscrit = "Pré-inscrit",
     Paiement = "Paiement",
-    Attestation = "Attestation"
+    Attestation = "Attestation",
+    Refuse = "Refusé"
 }
 
 export const PageSizeEnumList: {

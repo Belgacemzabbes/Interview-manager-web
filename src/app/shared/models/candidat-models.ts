@@ -8,3 +8,8 @@ export class CandidateModel {
     urL_CANDIDAT: string;
     iD_ETAT: number;
 }
+export class CandidateSearchModel {
+    idCandidat: number | null;
+    idEtat: number | null;
+    dateNaissance: string | null;
+}

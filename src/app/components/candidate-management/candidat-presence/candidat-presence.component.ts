@@ -4,6 +4,7 @@ import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
+import { InterviewService } from 'src/app/shared/services/interview.service';
 import { StateService } from 'src/app/shared/services/state.service';
 
 @Component({
@@ -16,20 +17,21 @@ export class CandidatPresenceComponent implements OnInit {
   public stateList: StateModel[] = [];
   public interviewDetail: InterviewDetailModel = new InterviewDetailModel();
   public etatId: number;
-  public isDisabled = true
+  public candidatId: number;
+  public isDisabled = true;
 
   constructor(
     private candidatService: CandidatService,
-    private stateService: StateService
+    private stateService: StateService,
+    private interviewService: InterviewService
   ) {}
 
   ngOnInit(): void {
-    this.getAllCandidat();
     this.getAllState();
- 
+    
   }
-  private async getAllCandidat() {
-    this.candidatService.GetAllCandidat().subscribe((data) => {
+  private async getCandidateByStateId() {
+    this.candidatService.GetCandidateByStateId(this.etatId).subscribe((data) => {
       this.candidatList = data;
     });
   }
@@ -39,11 +41,20 @@ export class CandidatPresenceComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          this.etatId = data.find(
+          (this.etatId = data.find(
             (s) => (s.liB_ETAT = EtatEntretienENum.EnCours)
-          ).iD_ETAT
+          ).iD_ETAT),
+        this.getCandidateByStateId()
         )
       );
+  }
+  public async onChangeCandidate() {
+    this.interviewService
+      .GetInterviewByCandidatId(
+        this.candidatId,
+        this.etatId
+      )
+      .subscribe((data) => (this.interviewDetail = data));
   }
   public onCancel() {}
 }

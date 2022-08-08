@@ -55,10 +55,10 @@ export class InterviewService {
       { headers: jwt, params: { idSession } }
     );
   }
-  public GetAllInterviewByCandidatId(idCandidat: number, idEtat: number) {
+  public GetInterviewByCandidatId(idCandidat: number, idEtat: number) {
     const jwt = this.authService.GetToken();
-    return this.http.get<InterviewDetailModel[]>(
-      this.interviewApiUrls.GetAllInterviewByCandidatId,
+    return this.http.get<InterviewDetailModel>(
+      this.interviewApiUrls.GetInterviewByCandidatId,
       { headers: jwt, params: { idCandidat,  idEtat} }
     );
   }

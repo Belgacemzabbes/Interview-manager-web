@@ -1,7 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { CandidatApiUrls } from '../apiUrls/candidat-api-urls';
-import { CandidateModel } from '../models/candidat-models';
+import {
+  CandidateModel,
+  CandidateSearchModel,
+} from '../models/candidat-models';
+import { InterviewDetailModel } from '../models/interview-models';
 import { AuthService } from './auth.service';
 
 @Injectable({
@@ -22,15 +26,34 @@ export class CandidatService {
       }
     );
   }
+  public GetCandidateBySearchCriteria(searchCriteria: CandidateSearchModel) {
+    const jwt = this.authService.GetToken();
+    return this.http.post<InterviewDetailModel[]>(
+      this.candidatApiUrls.GetCandidateBySearchCriteria,
+      searchCriteria,
+      {
+        headers: jwt,
+      }
+    );
+  }
+  public GetCandidateByStateId(etatId: number) {
+    const jwt = this.authService.GetToken();
+    return this.http.get<CandidateModel[]>(
+      this.candidatApiUrls.GetCandidateByStateId,
+      {
+        headers: jwt,
+        params: { etatId },
+      }
+    );
+  }
   public GetDetailCandidatById(id: number) {
     const jwt = this.authService.GetToken();
-    const data = this.http.get<CandidateModel>(
+    return this.http.get<CandidateModel>(
       this.candidatApiUrls.GetDetailCandidatById,
       {
         headers: jwt,
         params: { id },
       }
     );
-    return data.toPromise();
   }
 }

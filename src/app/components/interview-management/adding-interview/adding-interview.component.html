@@ -57,7 +57,7 @@
                                     'text-danger': candidat.invalid && isNotValid
                                   }">Candidat</label>
                                 <ng-select [items]="candidatList" name="candidat" bindValue="iD_CANDIDAT"
-                                    bindLabel="identitE_CANDIDAT" placeholder="Choisir un candidat"
+                                    bindLabel="identitE_CANDIDAT" placeholder="Choisir un candidat" 
                                     [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidat($event)" #candidat="ngModel" required>
                                 </ng-select>
                                 <small class="text-danger" *ngIf="candidat.invalid && isNotValid">
