@@ -9,11 +9,13 @@ import { CandidatPreinscritComponent } from './candidat-preinscrit/candidat-prei
 import { CandidatPaiementComponent } from './candidat-paiement/candidat-paiement.component';
 import { CandidatAttestationComponent } from './candidat-attestation/candidat-attestation.component';
 import { CandidatListeComponent } from './candidat-liste/candidat-liste.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [CandidatPresenceComponent, CandidatPreinscritComponent, CandidatPaiementComponent, CandidatAttestationComponent, CandidatListeComponent],
   imports: [
     CommonModule,
+    NgbModule,
     CandidateManagementRoutingModule,
     FormsModule,
     ReactiveFormsModule,

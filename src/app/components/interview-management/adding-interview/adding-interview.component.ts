@@ -82,7 +82,7 @@ export class AddingInterviewComponent implements OnInit {
       this.interview.iD_ETABLISSEMENT = this.sessionDetail.iD_ETABLISSEMENT;
       this.interview.datE_ENTRETIEN = this.sessionDetail.datE_SESSION;
       this.interview.heurE_ENTRETIEN.toString();
-      this.interviewService.AddInterview(this.interview).then((data) => {
+      this.interviewService.AddInterview(this.interview).subscribe((data) => {
         this.toastrService.displaySuccessMessage('Ajouté avec succés');
         this.interview = new InterviewAddModel();
         this.formationDetail = new FormationDetailModel();

@@ -19,10 +19,9 @@ export class InterviewService {
   ) {}
   public AddInterview(interview: InterviewAddModel) {
     const jwt = this.authService.GetToken();
-    const data = this.http.post(this.interviewApiUrls.AddInterview, interview, {
+    return this.http.post(this.interviewApiUrls.AddInterview, interview, {
       headers: jwt,
     });
-    return data.toPromise();
   }
   public EditInterview(interview: InterviewDetailModel) {
     const jwt = this.authService.GetToken();
