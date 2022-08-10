@@ -181,8 +181,8 @@
       </div>
       <div class="card-footer text-center">
         <div>
-          <button class="btn btn-danger float-right" type="button">Refuser</button>
-          <button class="btn btn-info float-right mr-2" type="button">Confirmer</button>
+          <button class="btn btn-danger float-right" type="button" [hidden]="isHidden" (click)="onRefusePresence()">Refuser</button>
+          <button class="btn btn-info float-right mr-2" type="button" [hidden]="isHidden" (click)="onConfirmPresence()">Confirmer</button>
         </div>
       </div>
     </div>

@@ -39,7 +39,6 @@ export class InterviewService {
       { headers: jwt }
     );
   }
-
   public GetInterviewById(id: number) {
     const jwt = this.authService.GetToken();
     return this.http.get<InterviewDetailModel>(
@@ -66,6 +65,12 @@ export class InterviewService {
     return this.http.get<any>(this.interviewApiUrls.AnnulerEntretien, {
       headers: jwt,
       params: { idEntretien },
+    });
+  }
+  public ChangeStateInterview(interviewDetail: InterviewDetailModel) {
+    const jwt = this.authService.GetToken();
+    return this.http.post<any>(this.interviewApiUrls.ChangeStateInterview,interviewDetail, {
+      headers: jwt,
     });
   }
 }

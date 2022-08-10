@@ -17,4 +17,6 @@ export class InterviewApiUrls {
     environment.apiUrl + '/api/InterviewAdding/EditInterview';
   public AnnulerEntretien =
     environment.apiUrl + '/api/Interview/AnnulerEntretien';
+  public ChangeStateInterview =
+    environment.apiUrl + '/api/Interview/ChangeStateInterview';
 }

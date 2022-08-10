@@ -18,7 +18,7 @@ export class CandidatPresenceComponent implements OnInit {
   public interviewDetail: InterviewDetailModel = new InterviewDetailModel();
   public etatId: number;
   public candidatId: number;
-  public isDisabled = true;
+  public isHidden = true;
 
   constructor(
     private candidatService: CandidatService,
@@ -54,7 +54,21 @@ export class CandidatPresenceComponent implements OnInit {
         this.candidatId,
         this.etatId
       )
-      .subscribe((data) => (this.interviewDetail = data));
+      .subscribe((data) => (this.interviewDetail = data,
+        this.isHidden = false));
   }
-  public onCancel() {}
+  public onCancel() {
+    this.candidatId = 0;
+    this.interviewDetail = new InterviewDetailModel();
+    this.isHidden = true
+  }
+  public onConfirmPresence(){
+    this.interviewDetail.liB_ETAT = EtatEntretienENum.Presence
+   
+    this.interviewService.ChangeStateInterview(this.interviewDetail).subscribe(data=>{})
+  }
+  public onRefusePresence(){
+    this.interviewDetail.liB_ETAT = EtatEntretienENum.Refuse
+    this.interviewService.ChangeStateInterview(this.interviewDetail).subscribe(data=>{})
+  }
 }
