@@ -61,6 +61,7 @@ export class CandidatListeComponent implements OnInit {
   }
   public onCancelSearch() {
     this.searchCriteria = new CandidateSearchModel();
+    this.getCandidateBySearchCriteria();
   }
   private onFilterRows(filterValue: string) {
     try {

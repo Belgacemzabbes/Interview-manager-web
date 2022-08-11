@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
 import { AuthenticationApiUrls } from '../apiUrls/authentication-api-urls';
 import { MenuModel } from '../models/menu-models';
 import {
@@ -14,13 +16,25 @@ import {
 export class AuthService {
   constructor(
     private http: HttpClient,
-    private authenticationApiUrls: AuthenticationApiUrls
+    private authenticationApiUrls: AuthenticationApiUrls,
+    private router: Router,
   ) {}
   public Login(user: UserLoginModel) {
     return this.http.post<CurrentUserModel>(
       this.authenticationApiUrls.loginUrl,
       user
+    ).pipe(
+      map((result) => {
+        localStorage.setItem("IsLoggedIn", "true");
+        return result;
+      })
     );
+  }
+  public logout() {
+    localStorage.setItem("IsLoggedIn", "false");
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    this.router.navigate(['/content/login']);
   }
   public GetToken() {
     const token = localStorage.getItem('token');

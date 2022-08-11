@@ -95,4 +95,12 @@ export class AddingInterviewComponent implements OnInit {
       this.isNotValid = true
     }
   }
+  public onCancel(){
+    this.interview = new InterviewAddModel();
+    this.candidatDetail = new CandidateModel();
+    this.formationDetail = new FormationDetailModel();
+    this.isNotValid = false;
+    this.candidatId= null;
+    this.formationId= null;
+  }
 }

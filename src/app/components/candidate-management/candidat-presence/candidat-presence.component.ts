@@ -42,7 +42,7 @@ export class CandidatPresenceComponent implements OnInit {
         (data) => (
           (this.stateList = data),
           (this.etatId = data.find(
-            (s) => (s.liB_ETAT = EtatEntretienENum.EnCours)
+            (s) => (s.liB_ETAT === EtatEntretienENum.EnCours)
           ).iD_ETAT),
         this.getCandidateByStateId()
         )

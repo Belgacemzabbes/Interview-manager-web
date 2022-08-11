@@ -74,7 +74,7 @@ export class AddingSessionComponent implements OnInit {
               this.isNotValid = false;
             } else if (data === AddReponseEnum.Exist) {
               this.sweetAlert.showErrorMessage(
-                'Le nom de la session est existé!'
+                'Le nom de la session existe déjà!'
               );
             }
           },
