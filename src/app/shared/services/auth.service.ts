@@ -23,18 +23,17 @@ export class AuthService {
     return this.http.post<CurrentUserModel>(
       this.authenticationApiUrls.loginUrl,
       user
-    ).pipe(
-      map((result) => {
-        localStorage.setItem("IsLoggedIn", "true");
-        return result;
-      })
-    );
+    )
   }
   public logout() {
     localStorage.setItem("IsLoggedIn", "false");
     localStorage.removeItem('token');
     localStorage.removeItem('user');
     this.router.navigate(['/content/login']);
+  }
+  get isLoggedIn(): boolean {
+    let authToken = localStorage.getItem('token');
+    return authToken !== null ? true : false;
   }
   public GetToken() {
     const token = localStorage.getItem('token');

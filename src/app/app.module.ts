@@ -42,6 +42,7 @@ import {
   CURRENCY_MASK_CONFIG,
 } from 'ng2-currency-mask';
 import { StateApiUrls } from './shared/apiUrls/state-api-urls';
+import { JwtModule } from '@auth0/angular-jwt';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -82,6 +83,9 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
   // maxTime: -1,
   // minTime: 500
 };
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -110,6 +114,11 @@ const ngxUiLoaderConfig: NgxUiLoaderConfig = {
     NgxUiLoaderRouterModule, // import this module for showing loader automatically when navigating between app routes
     NgxUiLoaderHttpModule,
     CurrencyMaskModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter
+      },
+    }),
   ],
   providers: [
     ThemeService,
