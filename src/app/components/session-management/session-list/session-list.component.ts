@@ -32,6 +32,7 @@ export class SessionListComponent implements OnInit {
   public pageSizeList = PageSizeEnumList;
   public dateShortDisplayFormat: any;
   public dateDiff: any;
+  public isHidden: boolean = false;
   public ouiNonList: SelectListIntStringModel[] = [
     { value: 1, text: 'Oui' },
     { value: 0, text: 'Non' },
@@ -75,6 +76,12 @@ export class SessionListComponent implements OnInit {
         .subscribe((data) => {
           this.sessionList = data;
           this.sessionListFiltered = data;
+          if(this.sessionSearch.estAnnule === 1){
+            this.isHidden = true
+          } else {
+            this.isHidden = false
+          }
+          console.log(this.sessionListFiltered);
         });
     // }
   }

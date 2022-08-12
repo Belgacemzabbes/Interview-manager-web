@@ -101,12 +101,12 @@
                       <!-- <a class="mdi mdi-eye font-weight-medium primary"></a> -->
                       <a routerLink="/interview-management/detail-interview/{{
                           interview.iD_ENTRETIEN
-                        }}">
+                        }}" id="cancel{{interview.iD_ENTRETIEN}}" [hidden]="interview.esT_ANNULE">
                         <i class="fa-solid fa-eye"></i>
                       </a>
                     </td>
                     <td class="text-center">
-                      <a (click)="onCancelEntretien(interview)">
+                      <a (click)="onCancelEntretien(interview)" id="cancel{{interview.iD_ENTRETIEN}}" [hidden]="interview.esT_ANNULE">
                         <i class="fa-solid fa-circle-xmark"></i>
                       </a>
                     </td>
