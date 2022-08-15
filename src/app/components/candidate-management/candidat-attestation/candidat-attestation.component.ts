@@ -6,11 +6,12 @@ import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
 import { StateService } from 'src/app/shared/services/state.service';
+import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-candidat-attestation',
   templateUrl: './candidat-attestation.component.html',
-  styleUrls: ['./candidat-attestation.component.scss']
+  styleUrls: ['./candidat-attestation.component.scss'],
 })
 export class CandidatAttestationComponent implements OnInit {
   public candidatList: CandidateModel[] = [];
@@ -22,16 +23,19 @@ export class CandidatAttestationComponent implements OnInit {
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
-    private interviewService: InterviewService
+    private interviewService: InterviewService,
+    private toastrService: NgxToastrService
   ) {}
 
   ngOnInit(): void {
     this.getAllState();
   }
   private async getCandidateByStateId() {
-    this.candidatService.GetCandidateByStateId(this.etatId).subscribe((data) => {
-      this.candidatList = data;
-    });
+    this.candidatService
+      .GetCandidateByStateId(this.etatId)
+      .subscribe((data) => {
+        this.candidatList = data;
+      });
   }
   private async getAllState() {
     this.stateService
@@ -41,36 +45,42 @@ export class CandidatAttestationComponent implements OnInit {
           (this.stateList = data),
           console.log(data),
           (this.etatId = data.find(
-            (s) => (s.liB_ETAT === EtatEntretienENum.Paiement)
+            (s) => s.liB_ETAT === EtatEntretienENum.Paiement
           ).iD_ETAT),
           console.log(this.etatId),
-        this.getCandidateByStateId()
+          this.getCandidateByStateId()
         )
       );
-      
   }
   public async onChangeCandidate() {
     this.interviewService
-      .GetInterviewByCandidatId(
-        this.candidatId,
-        this.etatId
-      )
-      .subscribe((data) => (this.interviewDetail = data,
-        this.isHidden = false));
+      .GetInterviewByCandidatIdAndEtatId(this.candidatId, this.etatId)
+      .subscribe(
+        (data) => ((this.interviewDetail = data), (this.isHidden = false))
+      );
   }
   public onCancel() {
     this.candidatId = 0;
     this.interviewDetail = new InterviewDetailModel();
-    this.isHidden = true
+    this.isHidden = true;
   }
-  public onConfirmPresence(){
-    this.interviewDetail.liB_ETAT = EtatEntretienENum.Attestation
-   
-    this.interviewService.ChangeStateInterview(this.interviewDetail).subscribe(data=>{})
+  public onConfirmPresence() {
+    this.interviewDetail.liB_ETAT = EtatEntretienENum.Attestation;
+
+    this.interviewService
+      .ChangeStateInterview(this.interviewDetail)
+      .subscribe((data) => {
+        this.toastrService.displaySuccessMessage('Confirmé avec succés!');
+        this.isHidden = true;
+      });
   }
-  public onRefusePresence(){
-    this.interviewDetail.liB_ETAT = EtatEntretienENum.Refuse
-    this.interviewService.ChangeStateInterview(this.interviewDetail).subscribe(data=>{})
+  public onRefusePresence() {
+    this.interviewDetail.liB_ETAT = EtatEntretienENum.Refuse;
+    this.interviewService
+      .ChangeStateInterview(this.interviewDetail)
+      .subscribe((data) => {
+        this.toastrService.displaySuccessMessage('Refusé avec succés!');
+        this.isHidden = true;
+      });
   }
 }
-

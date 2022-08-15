@@ -66,13 +66,13 @@
                 </caption>
                 <thead>
                   <tr>
-                    <th class="text-center">Session</th>
-                    <th class="text-center">Formation</th>
                     <th class="text-center">Candidat</th>
+                    <th class="text-center">Formation</th>
+                    <th class="text-center">Session</th>
                     <th class="text-center">Heure</th>
                     <th class="text-center">Date</th>
                     <th class="text-center">Détail Entretien</th>
-                    <th class="text-center">Annuler entretien</th>
+                    <th class="text-center" [hidden]="isHidden">Annuler entretien</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -83,13 +83,13 @@
                     : paginationConfig.page * paginationConfig.pageSize
               ">
                     <td class="py-1 text-center">
-                      <ngb-highlight [result]="interview.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
+                      <ngb-highlight [result]="interview.identitE_CANDIDAT" [term]="searchTerm.value"></ngb-highlight>
                     </td>
                     <td class="text-center">
                       <ngb-highlight [result]="interview.liB_FORMATION" [term]="searchTerm.value"></ngb-highlight>
                     </td>
                     <td class="text-center">
-                      <ngb-highlight [result]="interview.identitE_CANDIDAT" [term]="searchTerm.value"></ngb-highlight>
+                      <ngb-highlight [result]="interview.liB_SESSION" [term]="searchTerm.value"></ngb-highlight>
                     </td>
                     <td class="text-center">
                       <ngb-highlight [result]="interview.heurE_ENTRETIEN" [term]="searchTerm.value"></ngb-highlight>
@@ -101,12 +101,12 @@
                       <!-- <a class="mdi mdi-eye font-weight-medium primary"></a> -->
                       <a routerLink="/interview-management/detail-interview/{{
                           interview.iD_ENTRETIEN
-                        }}" id="cancel{{interview.iD_ENTRETIEN}}" [hidden]="interview.esT_ANNULE">
+                        }}" id="cancel{{interview.iD_ENTRETIEN}}" >
                         <i class="fa-solid fa-eye"></i>
                       </a>
                     </td>
-                    <td class="text-center">
-                      <a (click)="onCancelEntretien(interview)" id="cancel{{interview.iD_ENTRETIEN}}" [hidden]="interview.esT_ANNULE">
+                    <td class="text-center" [hidden]="interview.esT_ANNULE">
+                      <a (click)="onCancelEntretien(interview)" id="cancel{{interview.iD_ENTRETIEN}}">
                         <i class="fa-solid fa-circle-xmark"></i>
                       </a>
                     </td>

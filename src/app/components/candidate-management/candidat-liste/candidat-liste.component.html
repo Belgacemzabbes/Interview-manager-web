@@ -67,9 +67,9 @@
                             </caption>
                             <thead>
                                 <tr>
-                                    <th class="text-center">Session</th>
-                                    <th class="text-center">Formation</th>
                                     <th class="text-center">Candidat</th>
+                                    <th class="text-center">Formation</th>
+                                    <th class="text-center">Session</th>
                                     <th class="text-center">Heure</th>
                                     <th class="text-center">Etat</th>
                                 </tr>
@@ -82,7 +82,7 @@
                     : paginationConfig.page * paginationConfig.pageSize
               ">
                                     <td class="py-1 text-center">
-                                        <ngb-highlight [result]="candidat.liB_SESSION" [term]="searchTerm.value">
+                                        <ngb-highlight [result]="candidat.identitE_CANDIDAT" [term]="searchTerm.value">
                                         </ngb-highlight>
                                     </td>
                                     <td class="text-center">
@@ -90,7 +90,7 @@
                                         </ngb-highlight>
                                     </td>
                                     <td class="text-center">
-                                        <ngb-highlight [result]="candidat.identitE_CANDIDAT" [term]="searchTerm.value">
+                                        <ngb-highlight [result]="candidat.liB_SESSION" [term]="searchTerm.value">
                                         </ngb-highlight>
                                     </td>
                                     <td class="text-center">

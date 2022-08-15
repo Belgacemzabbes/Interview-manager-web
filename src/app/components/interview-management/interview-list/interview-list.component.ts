@@ -29,6 +29,7 @@ export class InterviewListComponent implements OnInit {
   public pageSizeList = PageSizeEnumList;
   public dateShortDisplayFormat = environment.dateShortDisplayFormat;
   public dateDiff: any;
+  public isHidden: boolean = false;
   public ouiNonList: SelectListIntStringModel[] = [
     { value: 1, text: 'Oui' },
     { value: 0, text: 'Non' },
@@ -68,6 +69,11 @@ export class InterviewListComponent implements OnInit {
         .subscribe((data) => {
           this.interviewList = data;
           this.interviewListFiltered = data;
+          if(this.interviewSearch.estAnnule === 1){
+            this.isHidden = true
+          } else {
+            this.isHidden = false
+          }
         });
     // }
   }

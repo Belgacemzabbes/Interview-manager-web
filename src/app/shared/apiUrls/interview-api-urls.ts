@@ -11,8 +11,8 @@ export class InterviewApiUrls {
     environment.apiUrl + '/api/Interview/GetInterviewById';
   public GetAllInterviewBySessionId =
     environment.apiUrl + '/api/Interview/GetAllInterviewBySessionId';
-  public GetInterviewByCandidatId =
-    environment.apiUrl + '/api/Interview/GetInterviewByCandidatId';
+  public GetInterviewByCandidatIdAndEtatId =
+    environment.apiUrl + '/api/Interview/GetInterviewByCandidatIdAndEtatId';
   public EditInterview =
     environment.apiUrl + '/api/InterviewAdding/EditInterview';
   public AnnulerEntretien =

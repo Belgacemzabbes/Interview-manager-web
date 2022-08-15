@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InterviewApiUrls } from '../apiUrls/interview-api-urls';
+import { AddReponseEnum } from '../Enumerators/Enums';
 import {
   InterviewAddModel,
   InterviewDetailModel,
@@ -19,7 +20,7 @@ export class InterviewService {
   ) {}
   public AddInterview(interview: InterviewAddModel) {
     const jwt = this.authService.GetToken();
-    return this.http.post(this.interviewApiUrls.AddInterview, interview, {
+    return this.http.post<AddReponseEnum>(this.interviewApiUrls.AddInterview, interview, {
       headers: jwt,
     });
   }
@@ -53,10 +54,10 @@ export class InterviewService {
       { headers: jwt, params: { idSession } }
     );
   }
-  public GetInterviewByCandidatId(idCandidat: number, idEtat: number) {
+  public GetInterviewByCandidatIdAndEtatId(idCandidat: number, idEtat: number) {
     const jwt = this.authService.GetToken();
     return this.http.get<InterviewDetailModel>(
-      this.interviewApiUrls.GetInterviewByCandidatId,
+      this.interviewApiUrls.GetInterviewByCandidatIdAndEtatId,
       { headers: jwt, params: { idCandidat,  idEtat} }
     );
   }

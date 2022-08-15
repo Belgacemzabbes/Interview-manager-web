@@ -22,13 +22,13 @@
                         <thead>
                             <tr>
                                 <th class="text-center">
-                                    Session
+                                    Candidat
                                 </th>
                                 <th class="text-center">
                                     Formation
                                 </th>
                                 <th class="text-center">
-                                    Candidat
+                                    Session
                                 </th>
                                 <th class="text-center">
                                     Heure
@@ -49,13 +49,13 @@
                               : paginationConfig.page * paginationConfig.pageSize
                         ">
                                 <td class="py-1 text-center">
-                                    <ngb-highlight [result]="interview.liB_SESSION"></ngb-highlight>
+                                    <ngb-highlight [result]="interview.identitE_CANDIDAT"></ngb-highlight>
                                 </td>
                                 <td class="text-center">
                                     <ngb-highlight [result]="interview.liB_FORMATION"></ngb-highlight>
                                 </td>
                                 <td class="text-center">
-                                    <ngb-highlight [result]="interview.identitE_CANDIDAT"></ngb-highlight>
+                                    <ngb-highlight [result]="interview.liB_SESSION"></ngb-highlight>
                                 </td>
                                 <td class="text-center">
                                     <ngb-highlight [result]="interview.heurE_ENTRETIEN"></ngb-highlight>
@@ -65,7 +65,7 @@
                                         <i class="fa-solid fa-eye"></i></a>
                                 </td>
                                 <td class="text-center">
-                                    <a (click)="onCancelEntretien(interview)">
+                                    <a (click)="onCancelEntretien(interview)" [hidden]="interview.esT_ANNULE">
                                         <i class="fa-solid fa-circle-xmark"></i>
                                     </a>
                                 </td>

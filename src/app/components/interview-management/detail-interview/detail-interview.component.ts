@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
   selector: 'app-detail-interview',
@@ -16,7 +17,8 @@ export class DetailInterviewComponent implements OnInit {
   public canEdit: boolean = false;
   constructor(
     private interviewService: InterviewService,
-    private router: ActivatedRoute
+    private router: ActivatedRoute,
+    private toastrService: NgxToastrService
   ) {
     this.interviewDetail = new InterviewDetailModel();
   }
@@ -66,6 +68,7 @@ export class DetailInterviewComponent implements OnInit {
     this.interviewService
       .EditInterview(this.interviewDetail)
       .subscribe((data) => {
+        this.toastrService.displaySuccessMessage('Modifié avec succés');
         this.canEdit = false;
       });
   }

@@ -128,9 +128,9 @@
         </div>
         <div class="card-footer">
             <div>
-                <button class="btn btn-danger float-right" type="button" [hidden]="!canEdit" (click)="onCancelEdit()">Annuler</button>
-                <button class="btn btn-warning float-right mr-2" type="submit" [hidden]="!canEdit">Enregistrer</button>
-                <button class="btn btn-info float-right mr-2" (click)="onEdit()" type="button" [hidden]="canEdit">Modifier</button>
+                <button class="btn btn-danger float-right" type="button" [hidden]="!canEdit || interviewDetail.esT_ANNULE" (click)="onCancelEdit()">Annuler</button>
+                <button class="btn btn-warning float-right mr-2" type="submit" [hidden]="!canEdit || interviewDetail.esT_ANNULE">Enregistrer</button>
+                <button class="btn btn-info float-right mr-2" (click)="onEdit()" type="button" [hidden]="canEdit || interviewDetail.esT_ANNULE">Modifier</button>
             </div>
         </div>
     </div>

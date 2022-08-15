@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AddReponseEnum } from 'src/app/shared/Enumerators/Enums';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import {
   FormationDetailModel,
@@ -12,6 +13,7 @@ import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { FormationService } from 'src/app/shared/services/formation.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
 import { SessionService } from 'src/app/shared/services/session.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
@@ -36,7 +38,8 @@ export class AddingInterviewComponent implements OnInit {
     private formationService: FormationService,
     private candidatService: CandidatService,
     private interviewService: InterviewService,
-    private toastrService: NgxToastrService
+    private toastrService: NgxToastrService,
+    private sweetAlert: SweetAlertService
   ) {
     this.sessionDetail = new SessionModel();
     this.formationDetail = new FormationDetailModel();
@@ -83,13 +86,19 @@ export class AddingInterviewComponent implements OnInit {
       this.interview.datE_ENTRETIEN = this.sessionDetail.datE_SESSION;
       this.interview.heurE_ENTRETIEN.toString();
       this.interviewService.AddInterview(this.interview).subscribe((data) => {
-        this.toastrService.displaySuccessMessage('Ajouté avec succés');
+        if (data === AddReponseEnum.NotExist) {
+          this.toastrService.displaySuccessMessage('Ajouté avec succés');
         this.interview = new InterviewAddModel();
         this.formationDetail = new FormationDetailModel();
         this.candidatDetail = new CandidateModel();
         this.candidatId= null;
         this.formationId= null;
         this.isNotValid = false;
+        } else if (data === AddReponseEnum.Exist) {
+          this.sweetAlert.showErrorMessage(
+            'L\'entretien  existe déjà!'
+          );
+        }
       });
     } else {
       this.isNotValid = true
