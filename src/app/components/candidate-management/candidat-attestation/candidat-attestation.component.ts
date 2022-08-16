@@ -66,12 +66,13 @@ export class CandidatAttestationComponent implements OnInit {
   }
   public onConfirmPresence() {
     this.interviewDetail.liB_ETAT = EtatEntretienENum.Attestation;
-
     this.interviewService
       .ChangeStateInterview(this.interviewDetail)
       .subscribe((data) => {
         this.toastrService.displaySuccessMessage('Confirmé avec succés!');
         this.isHidden = true;
+        this.getCandidateByStateId();
+        this.onCancel();
       });
   }
   public onRefusePresence() {
@@ -81,6 +82,8 @@ export class CandidatAttestationComponent implements OnInit {
       .subscribe((data) => {
         this.toastrService.displaySuccessMessage('Refusé avec succés!');
         this.isHidden = true;
+        this.getCandidateByStateId();
+        this.onCancel();
       });
   }
 }

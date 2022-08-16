@@ -71,6 +71,8 @@ export class CandidatPreinscritComponent implements OnInit {
       .subscribe((data) => {
         this.toastrService.displaySuccessMessage('Confirmé avec succés!');
         this.isHidden = true;
+        this.getCandidateByStateId();
+        this.onCancel();
       });
   }
   public onRefusePresence() {
@@ -80,6 +82,8 @@ export class CandidatPreinscritComponent implements OnInit {
       .subscribe((data) => {
         this.toastrService.displaySuccessMessage('Refusé avec succés!');
         this.isHidden = true;
+        this.getCandidateByStateId();
+        this.onCancel();
       });
   }
 }
