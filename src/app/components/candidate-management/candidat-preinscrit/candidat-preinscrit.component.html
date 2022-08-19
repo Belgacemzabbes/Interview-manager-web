@@ -1,5 +1,19 @@
 <div class="content-header">Pré-inscrit</div>
 <form class="form" autocomplete="off">
+  <!-- <div class="dropdown btn-group dropup mr-1 mb-1 ml-1 float-right" ngbDropdown>
+    <button type="button" class="btn btn-pink btn-raised">
+      <span class="ft-printer"></span>
+      Rapport
+    </button>
+    <button type="button" class="btn btn-pink btn-raised dropdown-toggle" ngbDropdownToggle aria-haspopup="true"
+      aria-expanded="false">
+      <span class="sr-only">Toggle Dropdown</span>
+    </button>
+    <div ngbDropdownMenu class="dropdown-menu" role="menu">
+      <a class="dropdown-item">Pdf</a>
+      <a class="dropdown-item">Word</a>
+    </div>
+  </div> -->
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
@@ -167,8 +181,10 @@
       </div>
       <div class="card-footer text-center">
         <div>
-          <button class="btn btn-danger float-right" type="button" [hidden]="isHidden" (click)="onRefusePresence()">Refuser</button>
-          <button class="btn btn-info float-right mr-2" type="button" [hidden]="isHidden" (click)="onConfirmPresence()">Accepter</button>
+          <button class="btn btn-danger float-right" type="button" [hidden]="isHidden"
+            (click)="onRefusePresence()">Refuser</button>
+          <button class="btn btn-info float-right mr-2" type="button" [hidden]="isHidden"
+            (click)="onConfirmPresence()">Accepter</button>
         </div>
       </div>
     </div>
