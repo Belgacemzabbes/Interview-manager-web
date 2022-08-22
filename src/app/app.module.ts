@@ -43,6 +43,7 @@ import {
 } from 'ng2-currency-mask';
 import { StateApiUrls } from './shared/apiUrls/state-api-urls';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ReportingApiUrls } from './shared/apiUrls/reporting-api-urls';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -130,6 +131,7 @@ export function tokenGetter() {
     CandidatApiUrls,
     InterviewApiUrls,
     StateApiUrls,
+    ReportingApiUrls,
     DatePipe,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
   ],

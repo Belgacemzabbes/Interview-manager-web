@@ -81,7 +81,6 @@ export class SessionListComponent implements OnInit {
           } else {
             this.isHidden = false
           }
-          console.log(this.sessionListFiltered);
         });
     // }
   }

@@ -43,11 +43,9 @@ export class CandidatPaiementComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          console.log(data),
           (this.etatId = data.find(
             (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
           ).iD_ETAT),
-          console.log(this.etatId),
           this.getCandidateByStateId()
         )
       );

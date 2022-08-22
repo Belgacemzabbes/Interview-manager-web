@@ -43,11 +43,9 @@ export class CandidatAttestationComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          console.log(data),
           (this.etatId = data.find(
             (s) => s.liB_ETAT === EtatEntretienENum.Paiement
           ).iD_ETAT),
-          console.log(this.etatId),
           this.getCandidateByStateId()
         )
       );

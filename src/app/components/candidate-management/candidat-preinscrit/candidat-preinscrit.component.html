@@ -1,19 +1,10 @@
-<div class="content-header">Pré-inscrit</div>
+<div class="content-header">
+  Pré-inscrit
+
+</div>
+
 <form class="form" autocomplete="off">
-  <!-- <div class="dropdown btn-group dropup mr-1 mb-1 ml-1 float-right" ngbDropdown>
-    <button type="button" class="btn btn-pink btn-raised">
-      <span class="ft-printer"></span>
-      Rapport
-    </button>
-    <button type="button" class="btn btn-pink btn-raised dropdown-toggle" ngbDropdownToggle aria-haspopup="true"
-      aria-expanded="false">
-      <span class="sr-only">Toggle Dropdown</span>
-    </button>
-    <div ngbDropdownMenu class="dropdown-menu" role="menu">
-      <a class="dropdown-item">Pdf</a>
-      <a class="dropdown-item">Word</a>
-    </div>
-  </div> -->
+
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
@@ -49,6 +40,16 @@
     <div class="card mt-3">
       <div class="card-body">
         <div class="card-block">
+          <div ngbDropdown >
+            <button class="btn btn-danger float-right" type="button" id="dropdownMenuButton3" ngbDropdownToggle>
+              Attestation de préinscription
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton3">
+              <a class="dropdown-item" (click)="onPrint(reportTypeEnum.PDF)">PDF</a>
+              <a class="dropdown-item" (click)="onPrint(reportTypeEnum.WORD)">WORD</a>
+            </div>
+          </div>
+        
           <div class="form-section">
             <i class="mdi mdi-information"></i>Détail entretien
           </div>

@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { EtatEntretienENum } from 'src/app/shared/Enumerators/Enums';
+import { EtatEntretienENum, ReportTypeEnum } from 'src/app/shared/Enumerators/Enums';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { ReportingService } from 'src/app/shared/services/reporting.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
@@ -20,11 +21,13 @@ export class CandidatPreinscritComponent implements OnInit {
   public etatId: number;
   public candidatId: number;
   public isHidden = true;
+  public reportTypeEnum = ReportTypeEnum;
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
     private interviewService: InterviewService,
-    private toastrService: NgxToastrService
+    private toastrService: NgxToastrService,
+    private reportingSevice: ReportingService
   ) {}
 
   ngOnInit(): void {
@@ -46,7 +49,6 @@ export class CandidatPreinscritComponent implements OnInit {
           (this.etatId = data.find(
             (s) => s.liB_ETAT === EtatEntretienENum.Presence
           ).iD_ETAT),
-          console.log(this.etatId),
           this.getCandidateByStateId()
         )
       );
@@ -85,5 +87,17 @@ export class CandidatPreinscritComponent implements OnInit {
         this.getCandidateByStateId();
         this.onCancel();
       });
+  }
+  public async onPrint(reportType: ReportTypeEnum) {
+     this.reportingSevice.GeneratePrinscriptionReport(this.interviewDetail.iD_ENTRETIEN, reportType).subscribe(
+      (response) => {
+        let fileName = response.headers.get("content-disposition")?.split(";")[1].split("=")[1];
+        let blob: Blob = response.body as Blob;
+        let a = document.createElement('a');
+        a.download = fileName;
+        a.href = window.URL.createObjectURL(blob);
+        a.click();
+      }
+    );
   }
 }
