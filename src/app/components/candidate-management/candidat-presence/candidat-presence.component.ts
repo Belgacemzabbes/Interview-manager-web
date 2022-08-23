@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { EtatEntretienENum } from 'src/app/shared/Enumerators/Enums';
+import { FormControl } from '@angular/forms';
+import { EtatEntretienENum, PageSizeEnumList } from 'src/app/shared/Enumerators/Enums';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
@@ -17,10 +19,14 @@ export class CandidatPresenceComponent implements OnInit {
   public candidatList: CandidateModel[] = [];
   public stateList: StateModel[] = [];
   public interviewDetail: InterviewDetailModel = new InterviewDetailModel();
-  public etatId: number;
-  public candidatId: number;
+  public interviewList: InterviewDetailModel[] = [];
+  public interviewListFiltered: InterviewDetailModel[] = [];
+  public etatId: number = 0;
+  public candidatId: number = 0;
   public isHidden = true;
-
+  public searchTerm = new FormControl('');
+  public paginationConfig = new PaginationConfig();
+  public pageSizeList = PageSizeEnumList;
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
@@ -29,7 +35,8 @@ export class CandidatPresenceComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllState();
+    // this.getAllState();
+    this.getAllInterviewByCandidatIdAndEtatI();
   }
   private async getCandidateByStateId() {
     this.candidatService
@@ -58,6 +65,16 @@ export class CandidatPresenceComponent implements OnInit {
         (data) => ((this.interviewDetail = data), (this.isHidden = false))
       );
   }
+  public getAllInterviewByCandidatIdAndEtatI() {
+    console.log(this.candidatId, this.etatId)
+    this.interviewService
+      .GetAllInterviewByCandidatIdAndEtatId(this.candidatId, this.etatId)
+      .subscribe((data) => {
+        this.interviewList = data;
+        this.interviewListFiltered = data;
+      });
+  }
+
   public onCancel() {
     this.candidatId = 0;
     this.interviewDetail = new InterviewDetailModel();

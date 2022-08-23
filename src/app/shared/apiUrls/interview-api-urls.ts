@@ -19,4 +19,6 @@ export class InterviewApiUrls {
     environment.apiUrl + '/api/Interview/AnnulerEntretien';
   public ChangeStateInterview =
     environment.apiUrl + '/api/Interview/ChangeStateInterview';
+  public GetAllInterviewByCandidatIdAndEtatIdUrl =
+    environment.apiUrl + '/api/Interview/GetAllInterviewByCandidatIdAndEtatId';
 }

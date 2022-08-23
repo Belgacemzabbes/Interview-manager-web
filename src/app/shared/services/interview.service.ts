@@ -61,6 +61,13 @@ export class InterviewService {
       { headers: jwt, params: { idCandidat,  idEtat} }
     );
   }
+  public GetAllInterviewByCandidatIdAndEtatId(idCandidat: number, idEtat: number) {
+    const jwt = this.authService.GetToken();
+    return this.http.get<InterviewDetailModel[]>(
+      this.interviewApiUrls.GetAllInterviewByCandidatIdAndEtatIdUrl,
+      { headers: jwt, params: { idCandidat,  idEtat} }
+    );
+  }
   public AnnulerEntretien(idEntretien: number) {
     const jwt = this.authService.GetToken();
     return this.http.get<any>(this.interviewApiUrls.AnnulerEntretien, {
