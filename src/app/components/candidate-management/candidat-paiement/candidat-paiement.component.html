@@ -1,5 +1,5 @@
 <div class="content-header">Paiement</div>
-<form class="form" autocomplete="off">
+<form class="form" autocomplete="off" (ngSubmit)="getAllInterviewByCandidatIdAndEtatI()">
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
@@ -10,18 +10,28 @@
           <div class="form-group row">
             <div class="col-md-4">
               <label class="label-control" for="candidat">Candidat</label>
-              <ng-select [items]="candidatList" bindValue="iD_CANDIDAT" bindLabel="identitE_CANDIDAT" name="candidat"
-                [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidate()" #candidat="ngModel"></ng-select>
+              <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="identiteCandidat">
+              <!-- <ng-select [items]="candidatList" bindValue="iD_CANDIDAT" bindLabel="identitE_CANDIDAT" name="candidat"
+                [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidate()" #candidat="ngModel"></ng-select> -->
             </div>
             <div class="col-md-4">
+              <label class="label-control" for="session">Session</label>
+              <input type="text" class="form-control" name="session" id="session" >
+            </div>
+            <!-- <div class="col-md-4">
               <label class="label-control" for="etat">État</label>
               <ng-select name="etat" [items]="stateList" bindValue="iD_ETAT" bindLabel="liB_ETAT" [(ngModel)]="etatId"
                 disabled></ng-select>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
       <div class="card-block search-footer-color">
+        <div class="float-right mr-5 mb-2">
+          <button type="submit" class="btn btn-raised btn-primary">
+            <span class="ft-search"></span>Chercher
+          </button>
+        </div>
         <div class="float-right mr-2 mb-2">
           <button type="button" class="btn btn-raised btn-warning" (click)="onCancel()">
             <span class="ft-file"></span>
@@ -31,7 +41,7 @@
       </div>
     </div>
   </section>
-  <section>
+  <!-- <section>
     <div class="card mt-3">
       <div class="card-body">
         <div class="card-block">
@@ -51,7 +61,6 @@
             </div>
           </div>
           <div class="row">
-            <!-- DETAIL CANDIDAT -->
             <div class="col-md-6">
               <div class="form-section">
                 <i></i>Détails candidat
@@ -68,10 +77,6 @@
                   <input class="form-control" type="text" name="nationalite" id="nationalite"
                     [(ngModel)]="interviewDetail.nationalitE_CANDIDAT" disabled>
                 </div>
-                <!-- <div class="col-md-6">
-                          <label class="label-control" for="email">Email</label>
-                          <input class="form-control" type="email" name="email" id="email" [(ngModel)]="interviewDetail.email" disabled>
-                      </div> -->
               </div>
               <div class="form-group row">
                 <div class="col-md-6">
@@ -100,7 +105,6 @@
                 </div>
               </div>
             </div>
-            <!-- DETAIL FORMATION -->
             <div class="col-md-6">
 
               <div class="form-section">
@@ -169,6 +173,103 @@
         <div>
           <button class="btn btn-danger float-right" type="button" [hidden]="isHidden" (click)="onRefusePresence()">Refuser</button>
           <button class="btn btn-info float-right mr-2" type="button" [hidden]="isHidden" (click)="onConfirmPresence()">Accepter</button>
+        </div>
+      </div>
+    </div>
+  </section> -->
+  <section>
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="card-block">
+          <!-- <form>
+            <div class="input-group">
+              <div>
+                <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré
+                  par</span>
+              </div>
+              <input type="text" class="form-control" placeholder="Recherche..." [formControl]="searchTerm" />
+            </div>
+          </form> -->
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <caption>
+                <div class="float-left">
+                  {{ interviewListFiltered.length }} élements trouvés
+                </div>
+                <div class="float-right">
+                  Page {{ paginationConfig.page }}
+                </div>
+              </caption>
+              <thead>
+                <tr>
+                  <th class="text-center">Candidat</th>
+                  <th class="text-center">Formation</th>
+                  <th class="text-center">Session</th>
+                  <th class="text-center">Heure</th>
+                  <th class="text-center">Etat</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let interview of interviewListFiltered
+              | slice
+                : (paginationConfig.page - 1) *
+                    paginationConfig.pageSize
+                : paginationConfig.page * paginationConfig.pageSize
+          ">
+                  <td class="py-1 text-center">
+                    <ngb-highlight [result]="interview.identitE_CANDIDAT" [term]="searchTerm.value">
+                    </ngb-highlight>
+                  </td>
+                  <td class="text-center">
+                    <ngb-highlight [result]="interview.liB_FORMATION" [term]="searchTerm.value">
+                    </ngb-highlight>
+                  </td>
+                  <td class="text-center">
+                    <ngb-highlight [result]="interview.liB_SESSION" [term]="searchTerm.value">
+                    </ngb-highlight>
+                  </td>
+                  <td class="text-center">
+                    <ngb-highlight [result]="interview.heurE_ENTRETIEN" [term]="searchTerm.value">
+                    </ngb-highlight>
+                  </td>
+                  <td class="text-center">
+                    <ngb-highlight [result]="interview.liB_ETAT" [term]="searchTerm.value">
+                    </ngb-highlight>
+                  </td>
+                  <td class="text-center">
+                    <div class="btn-group">
+                      <a class="p-0" ngbTooltip="Détails"  routerLink="/candidate-management/candidate-detail/{{
+                        etatDetail.Paiement
+                      }}" >
+                        <i class="fa-solid fa-circle-info mr-3"></i>
+                      </a>
+                      <a class="info p-0" ngbTooltip="Valider" (click)="onConfirmPresence(interview)">
+                        <i class="fa-solid fa-circle-check mr-3"></i>
+                      </a>
+                      <a class="danger p-0" ngbTooltip="Refuser" (click)="onRefusePresence(interview)">
+                        <i class="fa-solid fa-circle-xmark mr-3" ></i>
+                      </a>
+                      <a class="p-0" ngbTooltip="Imprimer">
+                        <i class="fa-solid fa-print mr-3"></i>
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-between p-2">
+              <ngb-pagination #pagination [(page)]="paginationConfig.page" [pageSize]="paginationConfig.pageSize"
+                [collectionSize]="interviewListFiltered.length" [rotate]="true" [maxSize]="paginationConfig.maxSize"
+                [boundaryLinks]="true">
+              </ngb-pagination>
+              <select [(ngModel)]="paginationConfig.pageSize" class="custom-select" style="width: auto" name="pageSize">
+                <option *ngFor="let size of pageSizeList" [value]="size.value">
+                  {{ size.value }} {{ "Items par page" }}
+                </option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
     </div>

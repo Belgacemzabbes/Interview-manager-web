@@ -10,9 +10,10 @@ import { CandidatPaiementComponent } from './candidat-paiement/candidat-paiement
 import { CandidatAttestationComponent } from './candidat-attestation/candidat-attestation.component';
 import { CandidatListeComponent } from './candidat-liste/candidat-liste.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CandidatDetailComponent } from './candidat-detail/candidat-detail.component';
 
 @NgModule({
-  declarations: [CandidatPresenceComponent, CandidatPreinscritComponent, CandidatPaiementComponent, CandidatAttestationComponent, CandidatListeComponent],
+  declarations: [CandidatPresenceComponent, CandidatPreinscritComponent, CandidatPaiementComponent, CandidatAttestationComponent, CandidatListeComponent, CandidatDetailComponent],
   imports: [
     CommonModule,
     NgbModule,

@@ -30,4 +30,23 @@ export class SweetAlertService {
       }
     })
   }
+  public showChoiceFormat(message: string){
+    return Swal.fire({
+      title: message,
+      // title: 'Cette action va annuler tous les entretiens incluent dans cette session! Voulez-vous continuer?',
+      icon: 'question',
+      iconHtml: '?',
+      confirmButtonText: 'PDF',
+      cancelButtonText: 'WORD',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then(result =>{
+      if(result.value){
+        return true;
+      } else {
+        return false;
+      }
+    })
+  }
+  
 }

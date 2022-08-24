@@ -17,6 +17,13 @@ export enum EtatEntretienENum {
   Attestation = 'Attestation',
   Refuse = 'Refusé',
 }
+export enum EtatDetailENum {
+  Presence = 1,
+  Preinscrit = 2,
+  Paiement = 3,
+  Attestation = 4,
+}
+
 
 export const PageSizeEnumList: {
   key: string;

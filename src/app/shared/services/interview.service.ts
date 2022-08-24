@@ -61,11 +61,11 @@ export class InterviewService {
       { headers: jwt, params: { idCandidat,  idEtat} }
     );
   }
-  public GetAllInterviewByCandidatIdAndEtatId(idCandidat: number, idEtat: number) {
+  public GetAllInterviewByCandidatIdAndEtatId(identiteCandidat: string, idEtat: number) {
     const jwt = this.authService.GetToken();
     return this.http.get<InterviewDetailModel[]>(
       this.interviewApiUrls.GetAllInterviewByCandidatIdAndEtatIdUrl,
-      { headers: jwt, params: { idCandidat,  idEtat} }
+      { headers: jwt, params: { identiteCandidat,  idEtat} }
     );
   }
   public AnnulerEntretien(idEntretien: number) {

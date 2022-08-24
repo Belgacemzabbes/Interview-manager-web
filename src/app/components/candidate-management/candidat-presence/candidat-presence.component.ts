@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { EtatEntretienENum, PageSizeEnumList } from 'src/app/shared/Enumerators/Enums';
+import {
+  EtatDetailENum,
+  EtatEntretienENum,
+  PageSizeEnumList,
+} from 'src/app/shared/Enumerators/Enums';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
@@ -8,6 +12,7 @@ import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
 import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { StateService } from 'src/app/shared/services/state.service';
+import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
@@ -23,20 +28,22 @@ export class CandidatPresenceComponent implements OnInit {
   public interviewListFiltered: InterviewDetailModel[] = [];
   public etatId: number = 0;
   public candidatId: number = 0;
+  public identiteCandidat: string = '';
   public isHidden = true;
   public searchTerm = new FormControl('');
   public paginationConfig = new PaginationConfig();
   public pageSizeList = PageSizeEnumList;
+  public etatDetail = EtatDetailENum
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
     private interviewService: InterviewService,
-    private toastrService: NgxToastrService
+    private toastrService: NgxToastrService,
+    private sweetAlert: SweetAlertService
   ) {}
 
   ngOnInit(): void {
-    // this.getAllState();
-    this.getAllInterviewByCandidatIdAndEtatI();
+    this.getAllState();
   }
   private async getCandidateByStateId() {
     this.candidatService
@@ -54,7 +61,7 @@ export class CandidatPresenceComponent implements OnInit {
           (this.etatId = data.find(
             (s) => s.liB_ETAT === EtatEntretienENum.EnCours
           ).iD_ETAT),
-          this.getCandidateByStateId()
+          this.getAllInterviewByCandidatIdAndEtatI()
         )
       );
   }
@@ -66,41 +73,61 @@ export class CandidatPresenceComponent implements OnInit {
       );
   }
   public getAllInterviewByCandidatIdAndEtatI() {
-    console.log(this.candidatId, this.etatId)
     this.interviewService
-      .GetAllInterviewByCandidatIdAndEtatId(this.candidatId, this.etatId)
+      .GetAllInterviewByCandidatIdAndEtatId(this.identiteCandidat, this.etatId)
       .subscribe((data) => {
         this.interviewList = data;
         this.interviewListFiltered = data;
       });
   }
-
   public onCancel() {
-    this.candidatId = 0;
+    this.identiteCandidat = '';
     this.interviewDetail = new InterviewDetailModel();
     this.isHidden = true;
   }
-  public onConfirmPresence() {
-    this.interviewDetail.liB_ETAT = EtatEntretienENum.Presence;
-
-    this.interviewService
-      .ChangeStateInterview(this.interviewDetail)
-      .subscribe((data) => {
-        this.toastrService.displaySuccessMessage('Confirmé avec succés!');
-        this.isHidden = true;
-        this.getCandidateByStateId();
-        this.onCancel();
+  public onConfirmPresence(interview: InterviewDetailModel) {
+    interview.liB_ETAT = EtatEntretienENum.Presence;
+    this.sweetAlert
+      .showChoiceMessage(
+        'Cette action va confirmer la présence! Voulez-vous continuer?'
+      )
+      .then((response: boolean) => {
+        if (response) {
+          this.interviewService
+            .ChangeStateInterview(interview)
+            .subscribe((data) => {
+              const index = this.interviewListFiltered.indexOf(interview, 0);
+              if (index > -1) {
+                this.interviewListFiltered.splice(index, 1);
+              }
+              this.toastrService.displaySuccessMessage('Confirmé avec succés!');
+              this.isHidden = true;
+              this.getCandidateByStateId();
+            });
+        }
       });
   }
-  public onRefusePresence() {
-    this.interviewDetail.liB_ETAT = EtatEntretienENum.Refuse;
-    this.interviewService
-      .ChangeStateInterview(this.interviewDetail)
-      .subscribe((data) => {
-        this.toastrService.displaySuccessMessage('Refusé avec succés!');
-        this.isHidden = true;
-        this.getCandidateByStateId();
-        this.onCancel();
+  public onRefusePresence(interview: InterviewDetailModel) {
+    interview.liB_ETAT = EtatEntretienENum.Refuse;
+    this.sweetAlert
+      .showChoiceMessage(
+        'Cette action va refuser la présence! Voulez-vous continuer?'
+      )
+      .then((response: boolean) => {
+        if (response) {
+          this.interviewService
+            .ChangeStateInterview(interview)
+            .subscribe((data) => {
+              const index = this.interviewListFiltered.indexOf(interview, 0);
+              if (index > -1) {
+                this.interviewListFiltered.splice(index, 1);
+              }
+              this.toastrService.displaySuccessMessage('Refusé avec succés!');
+              this.isHidden = true;
+              this.getCandidateByStateId();
+              this.onCancel();
+            });
+        }
       });
   }
 }
