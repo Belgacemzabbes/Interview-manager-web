@@ -47,7 +47,7 @@ const routes: Routes = [
         }
       },
       {
-        path:'candidate-detail/:etatDetail',
+        path:'candidate-detail/:etatDetail/:idEntretien',
         component: CandidatDetailComponent,
         data:{
           title:'candidate-detail'

@@ -68,7 +68,6 @@ export class CandidatPaiementComponent implements OnInit {
       );
   }
   public getAllInterviewByCandidatIdAndEtatI() {
-    console.log(this.candidatId, this.etatId);
     this.interviewService
       .GetAllInterviewByCandidatIdAndEtatId(this.identiteCandidat, this.etatId)
       .subscribe((data) => {

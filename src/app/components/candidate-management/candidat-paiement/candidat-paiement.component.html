@@ -241,10 +241,10 @@
                     <div class="btn-group">
                       <a class="p-0" ngbTooltip="Détails"  routerLink="/candidate-management/candidate-detail/{{
                         etatDetail.Paiement
-                      }}" >
+                      }}/{{interview.iD_ENTRETIEN}}" >
                         <i class="fa-solid fa-circle-info mr-3"></i>
                       </a>
-                      <a class="info p-0" ngbTooltip="Valider" (click)="onConfirmPresence(interview)">
+                      <!-- <a class="info p-0" ngbTooltip="Valider" (click)="onConfirmPresence(interview)">
                         <i class="fa-solid fa-circle-check mr-3"></i>
                       </a>
                       <a class="danger p-0" ngbTooltip="Refuser" (click)="onRefusePresence(interview)">
@@ -252,7 +252,7 @@
                       </a>
                       <a class="p-0" ngbTooltip="Imprimer">
                         <i class="fa-solid fa-print mr-3"></i>
-                      </a>
+                      </a> -->
                     </div>
                   </td>
                 </tr>

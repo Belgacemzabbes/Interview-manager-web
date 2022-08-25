@@ -1,1 +1,140 @@
-<p>candidat-detail works!</p>
+ <section>
+    <div class="card mt-3">
+      <div class="card-body">
+        <div class="card-block">
+          <div class="form-section">
+            <i class="mdi mdi-information"></i>Détail candidat <span class="float-right badge bg-warning">{{interviewDetail.liB_ETAT}}</span>
+          </div>
+          <div class="form-group row">
+            <div class="col-md-3">
+              <label class="label-control" for="heure">Heure</label>
+              <input class="form-control" type="time" name="heure" id="heure"
+                [(ngModel)]="interviewDetail.heurE_ENTRETIEN" disabled>
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="session">Session</label>
+              <input class="form-control" type="text" name="session" id="session"
+                [(ngModel)]="interviewDetail.liB_SESSION" disabled>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-section">
+                <i></i>Détails candidat
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="candidateName">Candidat</label>
+                  <input class="form-control" type="text" name="candidateName" id="candidateName"
+                    [(ngModel)]="interviewDetail.identitE_CANDIDAT" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="nationalite">Nationalité</label>
+                  <input class="form-control" type="text" name="nationalite" id="nationalite"
+                    [(ngModel)]="interviewDetail.nationalitE_CANDIDAT" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="dateNaissance">Date de naissance</label>
+                  <input class="form-control" type="text" name="dateNaissance" id="dateNaissance"
+                    [ngModel]="interviewDetail.datE_NAISSANCE_CANDIDAT | date:'dd-MM-yyyy'" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="lieuNaissance">Lieu de naissance</label>
+                  <input class="form-control" type="text" name="lieuNaissance" id="lieuNaissance"
+                    [(ngModel)]="interviewDetail.lieU_NAISSANCE_CANDIDAT" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md">
+                  <label class="label-control" for="adresse">Adresse</label>
+                  <textarea class="form-control" name="adresse" id="adresse" cols="30" rows="3"
+                    [(ngModel)]="interviewDetail.adressE_CANDIDAT" disabled></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md">
+                  <label class="label-control" for="ficheCandidat">Fiche candidat</label>
+                  <input class="form-control" type="url" name="ficheCandidat" id="ficheCandidat"
+                    [(ngModel)]="interviewDetail.urL_CANDIDAT" disabled>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+
+              <div class="form-section">
+                <i></i>Détails formation
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="formtionDesignation">Formation</label>
+                  <input class="form-control" type="text" name="formtionDesignation" id="formtionDesignation"
+                    [(ngModel)]="interviewDetail.liB_FORMATION" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="dateEntree">Date d'entrée</label>
+                  <input class="form-control" type="text" name="dateEntree" id="dateEntree"
+                    [ngModel]="interviewDetail.datE_ENTREE | date: 'dd-MM-yyyy'" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="etablissement">Etablissement</label>
+                  <input class="form-control" type="text" name="etablissement" id="etablissement"
+                    [(ngModel)]="interviewDetail.liB_ETABLISSEMENT" disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="dateLimiteEntree">Date limite d'entrée</label>
+                  <input class="form-control" type="text" name="dateLimiteEntree" id="dateLimiteEntree"
+                    [ngModel]="interviewDetail.datE_LIMITE | date: 'dd-MM-yyyy'" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="ville">Ville</label>
+                  <input class="form-control" type="text" name="ville" id="ville" [(ngModel)]="interviewDetail.ville"
+                    disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="directeur">Directeur</label>
+                  <input class="form-control" type="text" name="directeur" id="directeur"
+                    [(ngModel)]="interviewDetail.directeur" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="classe">Classe</label>
+                  <input class="form-control" type="text" name="classe" id="classe" [(ngModel)]="interviewDetail.classe"
+                    disabled>
+                </div>
+                <div class="col-md-6">
+                  <label class="label-control" for="montant">Montant</label>
+                  <input currencyMask class="form-control" type="text" name="montant" id="montant"
+                    [ngModel]="interviewDetail.montant" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label class="label-control" for="annee">Année</label>
+                  <input class="form-control" type="number" name="annee" id="annee" [(ngModel)]="interviewDetail.annee"
+                    disabled>
+                </div>
+                <div class="col-md-6">
+                    <label class="label-control" for="niveauAdmisssion">Niveau d'admission</label>
+                    <input class="form-control" type="text" name="niveauAdmisssion" id="niveauAdmisssion"
+                         disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer text-center">
+        <div>
+          <button class="btn btn-danger float-right" type="button" [hidden]="isHidden" (click)="onRefusePresence()">Refuser</button>
+          <button class="btn btn-info float-right mr-2" type="button" [hidden]="isHidden" (click)="changeState()">Accepter</button>
+        </div>
+      </div>
+    </div>
+  </section>
