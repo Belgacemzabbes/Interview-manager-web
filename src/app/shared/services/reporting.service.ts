@@ -23,4 +23,14 @@ export class ReportingService {
       params: { idEntretien, reportType }, observe: "response", responseType: "blob"
     });
   }
+  public GenerateInscriptionReport(
+    idEntretien: number,
+    reportType: ReportTypeEnum
+  ) {
+    const jwt = this.authService.GetToken();
+    return this.http.get(this.reportingApiUrls.GenerateInscriptionReportUrl, {
+      headers: jwt,
+      params: { idEntretien, reportType }, observe: "response", responseType: "blob"
+    });
+  }
 }

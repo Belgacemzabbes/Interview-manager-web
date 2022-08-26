@@ -1,9 +1,28 @@
+
+<section>
+  <!-- <button type="button" class="btn btn-primary float-right">Imprimer</button> -->
+</section>
  <section>
     <div class="card mt-3">
       <div class="card-body">
         <div class="card-block">
+          <div ngbDropdown [hidden]="etatDetail == 1 || etatDetail == 2">
+            <button *ngIf="etatDetail == 3" class="btn btn-sm btn-primary float-right" type="button" id="dropdownMenuButton3" ngbDropdownToggle>
+              <i class="fa-solid fa-print mr-2"></i>Attestation de préinscription
+            </button>
+            <button *ngIf="etatDetail == 4" class="btn btn-sm btn-primary float-right" type="button" id="dropdownMenuButton3" ngbDropdownToggle>
+              <i class="fa-solid fa-print mr-2"></i>Attestation d'inscription
+            </button>
+            <div ngbDropdownMenu aria-labelledby="dropdownMenuButton3">
+              <a class="dropdown-item" (click)="onPrint(reportTypeEnum.PDF)">PDF</a>
+              <a class="dropdown-item" (click)="onPrint(reportTypeEnum.WORD)">WORD</a>
+            </div>
+          </div>
           <div class="form-section">
-            <i class="mdi mdi-information"></i>Détail candidat <span class="float-right badge bg-warning">{{interviewDetail.liB_ETAT}}</span>
+            <i class="mdi mdi-information"></i>Détail candidat
+            <span class="badge bg-warning">{{interviewDetail.liB_ETAT}}</span> 
+            <!-- <button type="button" class="btn btn-sm btn-primary float-right" [hidden]="etatDetail == 1 || etatDetail == 2"><i class="fa-solid fa-print mr-2"></i>Imprimer</button> -->
+          
           </div>
           <div class="form-group row">
             <div class="col-md-3">

@@ -6,6 +6,7 @@ import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
+import { ReportingService } from 'src/app/shared/services/reporting.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
@@ -34,6 +35,7 @@ export class CandidatDetailComponent implements OnInit {
     private toastrService: NgxToastrService,
     private sweetAlert: SweetAlertService,
     private activtedRouter: ActivatedRoute,
+    private reportingSevice: ReportingService,
     private route: Router
   ) { }
 
@@ -104,7 +106,10 @@ export class CandidatDetailComponent implements OnInit {
             .ChangeStateInterview(this.interviewDetail)
             .subscribe((data) => {
               this.toastrService.displaySuccessMessage('Confirmé avec succés!');
-              this.route.navigateByUrl(`/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`);
+              // let a = document.createElement('a');
+              // a.href = `/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`
+              // a.click();
+              // this.route.navigateByUrl(`/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`);
               this.isHidden = true;
               this.onCancel();
             });
@@ -128,6 +133,48 @@ export class CandidatDetailComponent implements OnInit {
             });
         }
       });
+  }
+  public async onPrint(reportType: ReportTypeEnum) {
+    switch (this.interviewDetail.liB_ETAT){
+      case EtatEntretienENum.Preinscrit:{
+        this.reportingSevice
+        .GeneratePrinscriptionReport(
+          this.interviewDetail.iD_ENTRETIEN,
+          reportType
+        )
+        .subscribe((response) => {
+          let fileName = response.headers
+            .get('content-disposition')
+            ?.split(';')[1]
+            .split('=')[1];
+          let blob: Blob = response.body as Blob;
+          let a = document.createElement('a');
+          a.download = fileName;
+          a.href = window.URL.createObjectURL(blob);
+          a.click();
+        });
+        break;
+      }
+      case EtatEntretienENum.Paiement:{
+        this.reportingSevice
+        .GenerateInscriptionReport(
+          this.interviewDetail.iD_ENTRETIEN,
+          reportType
+        )
+        .subscribe((response) => {
+          let fileName = response.headers
+            .get('content-disposition')
+            ?.split(';')[1]
+            .split('=')[1];
+          let blob: Blob = response.body as Blob;
+          let a = document.createElement('a');
+          a.download = fileName;
+          a.href = window.URL.createObjectURL(blob);
+          a.click();
+        });
+        break;
+      }
+    }
   }
 
 }
