@@ -1,3 +1,5 @@
+import { FormationModel } from "./fomrmation-models";
+
 export class InterviewAddModel {
   iD_CANDIDAT: number;
   iD_FORMATION: number;
@@ -6,6 +8,10 @@ export class InterviewAddModel {
   heurE_ENTRETIEN: string;
   datE_ENTRETIEN: string;
   esT_ANNULE: number;
+  formation: FormationModel;
+  constructor(){
+    this.formation = new FormationModel()
+  }
 }
 export class InterviewDetailModel {
   iD_ENTRETIEN: number;
@@ -36,6 +42,7 @@ export class InterviewDetailModel {
   directeur: string;
   montant: number;
   annee: number;
+  niveaU_ADMISSION: string;
 }
 export class InterviewSearchModel {
   session: string;

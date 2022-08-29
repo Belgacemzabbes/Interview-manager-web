@@ -4,11 +4,12 @@ export class FormationModel {
     iD_ETABLISSEMENT: number;
     datE_ENTREE: string;
     datE_LIMITE: string;
-    villeE: string;
-    classE: string;
-    directeuR: string;
-    montanT: number;
-    anneE: number;
+    ville: string;
+    class: string;
+    directeur: string;
+    montant: number;
+    annee: number;
+    niveaU_ADMISSION: string;
 }
 export class FormationDetailModel {
     iD_FORMATION: number;
@@ -22,4 +23,5 @@ export class FormationDetailModel {
     directeur: string;
     montant: number;
     annee: number;
+    niveaU_ADMISSION: string;
 }

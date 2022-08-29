@@ -10,8 +10,8 @@
                     <div class="form-group row">
                         <div class="col-md-4">
                             <label class="label-control" for="candidat">Candidat</label>
-                            <ng-select [items]="candidatList" bindValue="iD_CANDIDAT" bindLabel="identitE_CANDIDAT"
-                                name="candidat" [(ngModel)]="searchCriteria.idCandidat"></ng-select>
+                            <input type="text" class="form-control"
+                                name="candidat" [(ngModel)]="searchCriteria.identiteCandidat">
                         </div>
                         <div class="col-md-4">
                             <label class="label-control" for="etat">État</label>
@@ -45,7 +45,7 @@
         <div class="card mt-3">
             <div class="card-body">
                 <div class="card-block">
-                    <form>
+                    <!-- <form>
                         <div class="input-group">
                             <div>
                                 <span class="mdi mdi-filter input-group-text form-control" id="sizing-addon1">Filtré
@@ -54,7 +54,7 @@
                             <input type="text" class="form-control" placeholder="Recherche..."
                                 [formControl]="searchTerm" />
                         </div>
-                    </form>
+                    </form> -->
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <caption>

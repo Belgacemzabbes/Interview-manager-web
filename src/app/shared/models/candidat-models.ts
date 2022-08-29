@@ -9,7 +9,7 @@ export class CandidateModel {
     iD_ETAT: number;
 }
 export class CandidateSearchModel {
-    idCandidat: number | null;
+    identiteCandidat: string;
     idEtat: number | null;
     dateNaissance: string | null;
 }
