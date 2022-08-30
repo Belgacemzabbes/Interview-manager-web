@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CandidatAttestationComponent } from './candidat-attestation/candidat-attestation.component';
 import { CandidatDetailComponent } from './candidat-detail/candidat-detail.component';
+import { CandidatListeEntretienComponent } from './candidat-liste-entretien/candidat-liste-entretien.component';
 import { CandidatListeComponent } from './candidat-liste/candidat-liste.component';
 import { CandidatPaiementComponent } from './candidat-paiement/candidat-paiement.component';
 import { CandidatPreinscritComponent } from './candidat-preinscrit/candidat-preinscrit.component';
-import { CandidatPresenceComponent } from './candidat-presence/candidat-presence.component';
 
 const routes: Routes = [
   {
@@ -13,7 +13,7 @@ const routes: Routes = [
     children:[
       {
         path:'candidate-presence',
-        component: CandidatPresenceComponent,
+        component: CandidatListeEntretienComponent,
         data:{
           title:'candidate-presence'
         }

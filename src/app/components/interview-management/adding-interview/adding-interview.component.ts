@@ -6,7 +6,7 @@ import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import {
   FormationDetailModel,
   FormationModel,
-} from 'src/app/shared/models/fomrmation-models';
+} from 'src/app/shared/models/formation-models';
 import { InterviewAddModel } from 'src/app/shared/models/interview-models';
 import { SessionModel } from 'src/app/shared/models/session-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';

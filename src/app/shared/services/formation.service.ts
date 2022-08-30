@@ -4,7 +4,7 @@ import { FormationApiUrls } from '../apiUrls/formation-api-urls';
 import {
   FormationDetailModel,
   FormationModel,
-} from '../models/fomrmation-models';
+} from '../models/formation-models';
 import { AuthService } from './auth.service';
 
 @Injectable({

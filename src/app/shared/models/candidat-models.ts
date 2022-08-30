@@ -13,3 +13,10 @@ export class CandidateSearchModel {
     idEtat: number | null;
     dateNaissance: string | null;
 }
+export class CandidatListeEntretienSearchCriterea{
+    idEtat: number;
+    session: string;
+    candidat: string;
+    dateSession: Date;
+    formateur: string;
+}

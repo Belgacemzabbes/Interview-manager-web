@@ -1,22 +1,29 @@
-<div class="content-header">Présence</div>
+<div class="content-header">Liste des entretiens</div>
 <form class="form" autocomplete="off" (ngSubmit)="getAllInterviewByCandidatIdAndEtatI()">
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
         <div class="card-block">
           <div class="form-section">
-            <i class="mdi mdi-account"></i>Candidat présent
+            <i class="mdi mdi-filter"></i>Critère de recherche
           </div>
           <div class="form-group row">
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="label-control" for="candidat">Candidat</label>
               <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="identiteCandidat">
-              <!-- <ng-select [items]="candidatList" bindValue="iD_CANDIDAT" bindLabel="identitE_CANDIDAT" name="candidat"
-                [(ngModel)]="candidatId" (ngModelChange)="onChangeCandidate()" #candidat="ngModel"></ng-select> -->
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
               <label class="label-control" for="session">Session</label>
               <input type="text" class="form-control" name="session" id="session" >
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateSession">Date Session</label>
+              <input class="form-control" type="date" name="dateSession" id="dateSession"
+                [(ngModel)]="searchCriterea.dateSession" #dateDebut="ngModel" onkeydown="return false" />
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="candidat">Formateur</label>
+              <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="identiteCandidat">
             </div>
             <!-- <div class="col-md-4">
               <label class="label-control" for="etat">État</label>
@@ -224,8 +231,8 @@
                   <th class="text-center">Candidat</th>
                   <th class="text-center">Formation</th>
                   <th class="text-center">Session</th>
-                  <th class="text-center">Heure</th>
-                  <th class="text-center">Etat</th>
+                  <th class="text-center">Date session</th>
+                  <th class="text-center">Heure entretien</th>
                   <th class="text-center"></th>
                 </tr>
               </thead>
@@ -249,13 +256,13 @@
                     </ngb-highlight>
                   </td>
                   <td class="text-center">
+                    {{ interview.datE_SESSION | date: dateShortDisplayFormat }}
+                  </td>
+                  <td class="text-center">
                     <ngb-highlight [result]="interview.heurE_ENTRETIEN" [term]="searchTerm.value">
                     </ngb-highlight>
                   </td>
-                  <td class="text-center">
-                    <ngb-highlight [result]="interview.liB_ETAT" [term]="searchTerm.value">
-                    </ngb-highlight>
-                  </td>
+                 
                   <td class="text-center">
                     <div class="btn-group">
                       <a class="p-0" ngbTooltip="Détails"  routerLink="/candidate-management/candidate-detail/{{

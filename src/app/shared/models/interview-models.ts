@@ -1,4 +1,4 @@
-import { FormationModel } from "./fomrmation-models";
+import { FormationModel } from "./formation-models";
 
 export class InterviewAddModel {
   iD_CANDIDAT: number;

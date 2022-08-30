@@ -8,6 +8,7 @@ import {
   CurrentUserModel,
   UserLoginModel,
   UserModel,
+  UserRoleModel,
 } from '../models/user-models';
 
 @Injectable({

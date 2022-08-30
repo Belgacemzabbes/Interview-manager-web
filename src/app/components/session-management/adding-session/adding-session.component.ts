@@ -11,6 +11,7 @@ import { EtablissementService } from 'src/app/shared/services/etablissement.serv
 import { SessionService } from 'src/app/shared/services/session.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-adding-session',
@@ -21,16 +22,18 @@ export class AddingSessionComponent implements OnInit {
   public etablissementList: EstablishmentModel[] = [];
   public sessionDetail: SessionModel;
   public currentUser: UserModel;
+  public formateurList: UserModel[] = [];
   public isNotValid: boolean = false;
   public dateDiff: any;
-  private dateNow = new Date()
+  private dateNow = new Date();
   constructor(
     private etablissementService: EtablissementService,
     private sessionService: SessionService,
     private authService: AuthService,
     private toastrService: NgxToastrService,
     private datePipe: DatePipe,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private userService: UserService
   ) {
     this.sessionDetail = new SessionModel();
     this.currentUser = new UserModel();
@@ -39,15 +42,27 @@ export class AddingSessionComponent implements OnInit {
   ngOnInit(): void {
     this.GetAllEtablissement();
     this.getUserById();
+    this.GetAllFormateur();
   }
   async GetAllEtablissement() {
     this.etablissementService.GetAllEtablissement().subscribe((data) => {
       this.etablissementList = data;
     });
   }
-  private addDays(days: number){
-    const dateTransfomed = new Date() 
-    return this.datePipe.transform(dateTransfomed.setDate(dateTransfomed.getDate() + days), 'dd-MM-yyyy')  ;
+  async GetAllFormateur() {
+    (await this.userService.GetAllFormateurs()).subscribe((data) => {
+      this.formateurList = data;
+      this.formateurList.map(f => f.nomComplet = f.noM_USER + ' ' + f.prenoM_USER);
+      console.log(this.formateurList);
+      
+    });
+  }
+  private addDays(days: number) {
+    const dateTransfomed = new Date();
+    return this.datePipe.transform(
+      dateTransfomed.setDate(dateTransfomed.getDate() + days),
+      'dd-MM-yyyy'
+    );
   }
   async AddSession(formValidation: NgForm) {
     if (formValidation.valid) {
@@ -55,18 +70,17 @@ export class AddingSessionComponent implements OnInit {
         this.dateDiff =
           Number(
             this.datePipe.transform(this.sessionDetail.datE_SESSION, 'yyyyMMdd')
-          ) -
-          Number(
-            this.datePipe.transform(new Date(), 'yyyyMMdd')
-          );
+          ) - Number(this.datePipe.transform(new Date(), 'yyyyMMdd'));
       }
       if (this.dateDiff <= 0) {
         this.sweetAlert.showErrorMessage(
-          `La date de la session ne peut pas être avant \n le ${this.addDays(1)}!`, 
+          `La date de la session ne peut pas être avant \n le ${this.addDays(
+            1
+          )}!`
         );
       } else {
         this.sessionDetail.iD_USER = this.currentUser.iD_USER;
-        this.sessionService.AddSession(this.sessionDetail).subscribe(
+        (await this.sessionService.AddSession(this.sessionDetail)).subscribe(
           (data) => {
             if (data === AddReponseEnum.NotExist) {
               this.toastrService.displaySuccessMessage('Ajouté avec succés');

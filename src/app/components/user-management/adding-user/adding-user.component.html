@@ -1,42 +1,91 @@
-<div class="card">
-    <div class="card-header">
-        <h5 class="title">Ajouter utilisateur</h5>
-    </div>
-    <div class="card-body">
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label class="label-control" for="firstName">Nom </label>
-                <input class="form-control" type="text" name="fisrtName" id="firstName">
+<form action="form" autocomplete="off" novalidate #regularForm="ngForm" (ngSubmit)="addUser(regularForm)">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="title">Ajouter utilisateur</h5>
+        </div>
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="label-control" for="firstName" [ngClass]="{
+              'text-danger': fisrtName.invalid && isNotValid
+            }">Nom *</label>
+                    <input class="form-control" type="text" name="fisrtName" id="firstName" #fisrtName="ngModel"
+                        [(ngModel)]="userDetails.noM_USER" required />
+                    <small class="text-danger" *ngIf="fisrtName.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="lastName" [ngClass]="{
+              'text-danger': lastName.invalid && isNotValid
+            }">Prénom *</label>
+                    <input class="form-control" type="text" name="lastName" id="lastName" #lastName="ngModel"
+                        [(ngModel)]="userDetails.prenoM_USER" required />
+                    <small class="text-danger" *ngIf="lastName.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="userName" [ngClass]="{
+              'text-danger': userName.invalid && isNotValid
+            }">Nom d'utilisateur *</label>
+                    <input class="form-control" type="text" name="userName" id="userName" #userName="ngModel"
+                        [(ngModel)]="userDetails.logiN_USER" required />
+                    <small class="text-danger" *ngIf="userName.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="label-control" for="lastName">Prénom </label>
-                <input class="form-control" type="text" name="lastName" id="lastName">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="label-control" for="email" [ngClass]="{
+              'text-danger': email.invalid && isNotValid
+            }">Email
+                    </label>
+                    <input class="form-control" type="email" name="email" id="email"
+                        [(ngModel)]="userDetails.emaiL_USER" #email="ngModel" required />
+                    <small class="text-danger" *ngIf="email.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="password" [ngClass]="{
+              'text-danger': password.invalid && isNotValid
+            }">Mot de passe *</label>
+                    <input class="form-control" type="text" name="password" id="password"
+                        [(ngModel)]="userDetails.pwD_USER_CLAIR" #password="ngModel" required />
+                    <small class="text-danger" *ngIf="password.invalid && isNotValid">
+                        Champ obligatoire
+                    </small>
+                </div>
+                <div class="col-md-4">
+                    <label class="label-control" for="role" [ngClass]="{
+              'text-danger': role.invalid && isNotValid
+            }">Role *</label>
+                    <ng-select [items]="userRoleList" bindLabel="liB_ROLE" bindValue="iD_ROLE" name="role"
+                        [(ngModel)]="userDetails.iD_ROLE" #role="ngModel" required>
+                        <small class="text-danger" *ngIf="role.invalid && isNotValid">
+                            Champ obligatoire
+                        </small>
+                    </ng-select>
+                </div>
             </div>
-            <div class="col-md-4">
-                <label class="label-control" for="userName">Nom d'utilisateur</label>
-                <input class="form-control" type="text" name="userName" id="userName">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <div class="custom-control custom-checkbox">
+                        <input class="custom-control-input" type="checkbox" id="estFormateur" name="estFormateur"
+                            [(ngModel)]="userDetails.esT_FORMATEUR" />
+                        <label class="custom-control-label" for="estFormateur">
+                            Est formateur
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label class="label-control" for="email">Email</label>
-                <input class="form-control" type="email" name="email" id="email">
-            </div>
-            <div class="col-md-4">
-                <label class="label-control" for="password">Mot de passe</label>
-                <input class="form-control" type="text" name="password" id="password">
-            </div>
-        </div>
-        <div class="form-group row">
-            <div class="col-md-4">
-                <label class="label-control" for="role">Role</label>
-                <ng-select >
-
-                </ng-select>
-            </div>
+        <div class="card-footer">
+            <button class="btn btn-info float-right" type="submit">
+                Enregistrer
+            </button>
         </div>
     </div>
-    <div class="card-footer">
-        <button class="btn btn-info float-right" type="button">Enregistrer</button>
-    </div>
-</div>
+</form>

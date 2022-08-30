@@ -22,7 +22,7 @@ export class SessionService {
       { headers: jwt }
     );
   }
-  public AddSession(session: SessionModel) {
+  public async AddSession(session: SessionModel) {
     const jwt = this.authService.GetToken();
     return this.http.post<AddReponseEnum>(
       this.sessionApiUrls.AddSession,

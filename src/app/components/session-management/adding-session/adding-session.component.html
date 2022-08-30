@@ -37,10 +37,15 @@
                 </div> -->
             </div>
             <div class="form-group row">
-               
-                    <label class="label-control col-md-2 text-right" for="user">User</label> <div class="col-md-4">
-                    <input class="form-control" type="text" name="user" id="user" [(ngModel)]="currentUser.noM_USER"
-                        #user="ngModel" disabled />
+                    <label class="label-control col-md-2 text-right" for="formateur" [ngClass]="{
+                        'text-danger': formateur.invalid && isNotValid
+                      }">Formateur *</label> <div class="col-md-4">
+                        <ng-select [items]="formateurList" bindLabel="nomComplet" bindValue="iD_USER" id="formateur" name="formateur"
+                        [(ngModel)]="sessionDetail.iD_USER" #formateur="ngModel" required>
+                        </ng-select>
+                        <small class="text-danger" *ngIf="formateur.invalid && isNotValid">
+                            Champ obligatoire
+                        </small>
                 </div>
                 
                     <label class="label-control col-md-2 text-right" for="etablissement" [ngClass]="{

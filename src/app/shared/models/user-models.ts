@@ -4,14 +4,17 @@ export class UserLoginModel {
 }
 export class UserModel {
     iD_USER: number;
-    pRENOM_USER: string;
+    prenoM_USER: string;
     noM_USER: string;
-    eMAIL_USER: string;
-    lOGIN_USER: string;
-    pWD_USER: string;
-    pWD_USER_CLAIR: string;
+    nomComplet:string
+    emaiL_USER: string;
+    logiN_USER: string;
+    pwD_USER: string;
+    pwD_USER_CLAIR: string;
     iD_ROLE: number;
+    esT_FORMATEUR: boolean;
 }
+
 
 export class CurrentUserModel {
     user: UserModel;
@@ -23,5 +26,5 @@ export class CurrentUserModel {
 
 export class UserRoleModel {
     iD_ROLE: number;
-    lIB_ROLE: string;
+    liB_ROLE: string;
 }

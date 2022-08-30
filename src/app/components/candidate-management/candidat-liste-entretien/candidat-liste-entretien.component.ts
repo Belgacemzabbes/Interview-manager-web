@@ -5,7 +5,7 @@ import {
   EtatEntretienENum,
   PageSizeEnumList,
 } from 'src/app/shared/Enumerators/Enums';
-import { CandidateModel } from 'src/app/shared/models/candidat-models';
+import { CandidateModel, CandidatListeEntretienSearchCriterea } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
@@ -16,19 +16,19 @@ import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 
 @Component({
-  selector: 'app-candidat-presence',
-  templateUrl: './candidat-presence.component.html',
-  styleUrls: ['./candidat-presence.component.css'],
+  selector: 'app-candidat-liste-entretien',
+  templateUrl: './candidat-liste-entretien.component.html',
+  styleUrls: ['./candidat-liste-entretien.component.css'],
 })
-export class CandidatPresenceComponent implements OnInit {
+export class CandidatListeEntretienComponent implements OnInit {
   public candidatList: CandidateModel[] = [];
   public stateList: StateModel[] = [];
   public interviewDetail: InterviewDetailModel = new InterviewDetailModel();
   public interviewList: InterviewDetailModel[] = [];
   public interviewListFiltered: InterviewDetailModel[] = [];
   public etatId: number = 0;
-  public candidatId: number = 0;
   public identiteCandidat: string = '';
+  public searchCriterea: CandidatListeEntretienSearchCriterea = new CandidatListeEntretienSearchCriterea();
   public isHidden = true;
   public searchTerm = new FormControl('');
   public paginationConfig = new PaginationConfig();
@@ -63,13 +63,6 @@ export class CandidatPresenceComponent implements OnInit {
           ).iD_ETAT),
           this.getAllInterviewByCandidatIdAndEtatI()
         )
-      );
-  }
-  public async onChangeCandidate() {
-    this.interviewService
-      .GetInterviewByCandidatIdAndEtatId(this.candidatId, this.etatId)
-      .subscribe(
-        (data) => ((this.interviewDetail = data), (this.isHidden = false))
       );
   }
   public getAllInterviewByCandidatIdAndEtatI() {
