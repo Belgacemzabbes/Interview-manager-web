@@ -11,10 +11,9 @@ export enum PageSizeEnum {
 }
 export enum EtatEntretienENum {
   EnCours = 'En cours',
-  Presence = 'Présent',
-  Preinscrit = 'Pré-inscrit',
-  Paiement = 'Paiement',
-  Attestation = 'Attestation',
+  Preinscrit = 'Préinscrit',
+  Inscrit = 'Inscrit',
+  Absent = 'Absent',
   Refuse = 'Refusé',
 }
 export enum EtatDetailENum {

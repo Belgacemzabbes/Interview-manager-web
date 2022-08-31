@@ -48,26 +48,11 @@ export class CandidatDetailComponent implements OnInit {
   public changeState(){
     switch (this.interviewDetail.liB_ETAT){
       case EtatEntretienENum.EnCours:{
-        this.onConfirmPresence("Présent");
-        console.log("presence");
-        break;
-      }
-      case EtatEntretienENum.Presence:{
-        this.onConfirmPresence("Pré-inscrit");
-        console.log("preinscrit");
+        this.onConfirmPresence("Preinscrit");
         break;
       }
       case EtatEntretienENum.Preinscrit:{
-        this.onConfirmPresence("Paiement");
-        console.log("paiement");
-        break;
-      }
-      case EtatEntretienENum.Paiement:{
-        this.onConfirmPresence("Attestation");
-        console.log("attestation");
-        break;
-      }
-      case EtatEntretienENum.Attestation:{
+        this.onConfirmPresence("Inscrit");
         break;
       }
     }
@@ -112,6 +97,14 @@ export class CandidatDetailComponent implements OnInit {
               // this.route.navigateByUrl(`/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`);
               this.isHidden = true;
               this.onCancel();
+              // this.sweetAlert
+              // .showChoiceMessage(
+              //   'Voulez-vous imprimer l\'attetation?'
+              // ).then((response)=>{
+              //   if(response){
+
+              //   }
+              // })
             });
         }
       });
@@ -155,7 +148,7 @@ export class CandidatDetailComponent implements OnInit {
         });
         break;
       }
-      case EtatEntretienENum.Paiement:{
+      case EtatEntretienENum.Inscrit:{
         this.reportingSevice
         .GenerateInscriptionReport(
           this.interviewDetail.iD_ENTRETIEN,

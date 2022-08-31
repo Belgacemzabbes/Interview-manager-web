@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { InterviewApiUrls } from '../apiUrls/interview-api-urls';
 import { AddReponseEnum } from '../Enumerators/Enums';
+import { CandidatListeEntretienSearchCriterea } from '../models/candidat-models';
 import {
   InterviewAddModel,
   InterviewDetailModel,
@@ -66,6 +67,13 @@ export class InterviewService {
     return this.http.get<InterviewDetailModel[]>(
       this.interviewApiUrls.GetAllInterviewByCandidatIdAndEtatIdUrl,
       { headers: jwt, params: { identiteCandidat,  idEtat} }
+    );
+  }
+  public GetInterviewByCandidatListeEntretienSearchCriterea(searchCriterea: CandidatListeEntretienSearchCriterea) {
+    const jwt = this.authService.GetToken();
+    return this.http.post<InterviewDetailModel[]>(
+      this.interviewApiUrls.GetInterviewByCandidatListeEntretienSearchCriterea, searchCriterea,
+      {headers:jwt}
     );
   }
   public AnnulerEntretien(idEntretien: number) {

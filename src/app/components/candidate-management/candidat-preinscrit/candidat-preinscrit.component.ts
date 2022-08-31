@@ -72,7 +72,7 @@ export class CandidatPreinscritComponent implements OnInit {
         (data) => (
           (this.stateList = data),
           (this.etatId = data.find(
-            (s) => s.liB_ETAT === EtatEntretienENum.Presence
+            (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
           ).iD_ETAT),
           this.getAllInterviewByCandidatIdAndEtatI()
         )

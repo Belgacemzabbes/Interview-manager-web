@@ -61,7 +61,7 @@ export class CandidatAttestationComponent implements OnInit {
         (data) => (
           (this.stateList = data),
           (this.etatId = data.find(
-            (s) => s.liB_ETAT === EtatEntretienENum.Paiement
+            (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
           ).iD_ETAT),
           this.getAllInterviewByCandidatIdAndEtatI()
         )
@@ -88,7 +88,7 @@ export class CandidatAttestationComponent implements OnInit {
     this.isHidden = true;
   }
   public onConfirmPresence(interview: InterviewDetailModel) {
-    interview.liB_ETAT = EtatEntretienENum.Attestation;
+    interview.liB_ETAT = EtatEntretienENum.Inscrit;
     this.sweetAlert
       .showChoiceMessage(
         'Cette action va confirmer la présence! Voulez-vous continuer?'

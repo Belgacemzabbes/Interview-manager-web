@@ -21,4 +21,6 @@ export class InterviewApiUrls {
     environment.apiUrl + '/api/Interview/ChangeStateInterview';
   public GetAllInterviewByCandidatIdAndEtatIdUrl =
     environment.apiUrl + '/api/Interview/GetAllInterviewByCandidatIdAndEtatId';
+  public GetInterviewByCandidatListeEntretienSearchCriterea =
+    environment.apiUrl + '/api/Interview/GetInterviewByCandidatListeEntretienSearchCriterea';
 }

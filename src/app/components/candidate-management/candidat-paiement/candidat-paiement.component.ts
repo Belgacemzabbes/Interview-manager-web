@@ -88,7 +88,7 @@ export class CandidatPaiementComponent implements OnInit {
     this.isHidden = true;
   }
   public onConfirmPresence(interview: InterviewDetailModel) {
-    interview.liB_ETAT = EtatEntretienENum.Paiement;
+    interview.liB_ETAT = EtatEntretienENum.Inscrit;
     this.sweetAlert
       .showChoiceMessage(
         'Cette action va confirmer la présence! Voulez-vous continuer?'

@@ -58,28 +58,28 @@ export class CandidatListeEntretienComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          (this.etatId = data.find(
+          (this.searchCriterea.idEtat = data.find(
             (s) => s.liB_ETAT === EtatEntretienENum.EnCours
           ).iD_ETAT),
-          this.getAllInterviewByCandidatIdAndEtatI()
+          this.getInterviewByCandidatListeEntretienSearchCriterea()
         )
       );
   }
-  public getAllInterviewByCandidatIdAndEtatI() {
+  public getInterviewByCandidatListeEntretienSearchCriterea() {
     this.interviewService
-      .GetAllInterviewByCandidatIdAndEtatId(this.identiteCandidat, this.etatId)
+      .GetInterviewByCandidatListeEntretienSearchCriterea(this.searchCriterea)
       .subscribe((data) => {
         this.interviewList = data;
         this.interviewListFiltered = data;
       });
   }
   public onCancel() {
-    this.identiteCandidat = '';
-    this.interviewDetail = new InterviewDetailModel();
+    this.searchCriterea = new CandidatListeEntretienSearchCriterea();
+    this.getInterviewByCandidatListeEntretienSearchCriterea()
     this.isHidden = true;
   }
   public onConfirmPresence(interview: InterviewDetailModel) {
-    interview.liB_ETAT = EtatEntretienENum.Presence;
+    interview.liB_ETAT = EtatEntretienENum.Preinscrit;
     this.sweetAlert
       .showChoiceMessage(
         'Cette action va confirmer la présence! Voulez-vous continuer?'

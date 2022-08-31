@@ -1,5 +1,5 @@
 <div class="content-header">Liste des entretiens</div>
-<form class="form" autocomplete="off" (ngSubmit)="getAllInterviewByCandidatIdAndEtatI()">
+<form class="form" autocomplete="off" (ngSubmit)="getInterviewByCandidatListeEntretienSearchCriterea()">
   <section>
     <div class="card card-search mt-3">
       <div class="card-body">
@@ -10,11 +10,11 @@
           <div class="form-group row">
             <div class="col-md-3">
               <label class="label-control" for="candidat">Candidat</label>
-              <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="identiteCandidat">
+              <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="searchCriterea.candidat">
             </div>
             <div class="col-md-3">
               <label class="label-control" for="session">Session</label>
-              <input type="text" class="form-control" name="session" id="session" >
+              <input type="text" class="form-control" name="session" id="session" [(ngModel)]="searchCriterea.session">
             </div>
             <div class="col-md-3">
               <label class="label-control" for="dateSession">Date Session</label>
@@ -22,8 +22,8 @@
                 [(ngModel)]="searchCriterea.dateSession" #dateDebut="ngModel" onkeydown="return false" />
             </div>
             <div class="col-md-3">
-              <label class="label-control" for="candidat">Formateur</label>
-              <input type="text" class="form-control" name="candidat" id="candidat" [(ngModel)]="identiteCandidat">
+              <label class="label-control" for="formateur">Formateur</label>
+              <input type="text" class="form-control" name="formateur" id="formateur" [(ngModel)]="searchCriterea.formateur">
             </div>
             <!-- <div class="col-md-4">
               <label class="label-control" for="etat">État</label>
