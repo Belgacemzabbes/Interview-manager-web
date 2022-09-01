@@ -53,8 +53,6 @@ export class AddingSessionComponent implements OnInit {
     (await this.userService.GetAllFormateurs()).subscribe((data) => {
       this.formateurList = data;
       this.formateurList.map(f => f.nomComplet = f.noM_USER + ' ' + f.prenoM_USER);
-      console.log(this.formateurList);
-      
     });
   }
   private addDays(days: number) {
@@ -79,7 +77,6 @@ export class AddingSessionComponent implements OnInit {
           )}!`
         );
       } else {
-        this.sessionDetail.iD_USER = this.currentUser.iD_USER;
         (await this.sessionService.AddSession(this.sessionDetail)).subscribe(
           (data) => {
             if (data === AddReponseEnum.NotExist) {

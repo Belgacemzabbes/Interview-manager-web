@@ -19,22 +19,34 @@
             </div>
           </div>
           <div class="form-section">
-            <i class="mdi mdi-information"></i>Détail candidat
+            <i class="mdi mdi-information"></i>Détail entretien
             <span class="badge bg-warning">{{interviewDetail.liB_ETAT}}</span> 
             <!-- <button type="button" class="btn btn-sm btn-primary float-right" [hidden]="etatDetail == 1 || etatDetail == 2"><i class="fa-solid fa-print mr-2"></i>Imprimer</button> -->
           
           </div>
-          <div class="form-group row">
+          <div class="form-group row"> 
+            <div class="col-md-3">
+              <label class="label-control" for="session">Session</label>
+              <input class="form-control" type="text" name="session" id="session"
+                [(ngModel)]="interviewDetail.liB_SESSION" disabled>
+            </div>
+            <div class="col-md-3">
+              <label class="label-control" for="dateSession">Date session</label>
+              <input class="form-control" type="text" name="dateSession" id="dateSession"
+                    [ngModel]="interviewDetail.datE_SESSION | date:'dd-MM-yyyy'" disabled>
+            </div>
             <div class="col-md-3">
               <label class="label-control" for="heure">Heure</label>
               <input class="form-control" type="time" name="heure" id="heure"
                 [(ngModel)]="interviewDetail.heurE_ENTRETIEN" disabled>
             </div>
             <div class="col-md-3">
-              <label class="label-control" for="session">Session</label>
-              <input class="form-control" type="text" name="session" id="session"
-                [(ngModel)]="interviewDetail.liB_SESSION" disabled>
+              <label class="label-control" for="formateur">Formateur</label>
+              <input class="form-control" type="text" name="formateur" id="formateur"
+                [(ngModel)]="interviewDetail.formateur
+                " disabled>
             </div>
+           
           </div>
           <div class="row">
             <div class="col-md-6">
@@ -77,6 +89,13 @@
                   <label class="label-control" for="ficheCandidat">Fiche candidat</label>
                   <input class="form-control" type="url" name="ficheCandidat" id="ficheCandidat"
                     [(ngModel)]="interviewDetail.urL_CANDIDAT" disabled>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md">
+                  <label class="label-control" for="commentaire">Commentaire</label>
+                  <textarea class="form-control" name="commentaire" id="commentaire" cols="30" rows="4"
+                  [(ngModel)]="interviewDetail.commentaire"></textarea>
                 </div>
               </div>
             </div>

@@ -23,7 +23,10 @@
             </div>
             <div class="col-md-3">
               <label class="label-control" for="formateur">Formateur</label>
-              <input type="text" class="form-control" name="formateur" id="formateur" [(ngModel)]="searchCriterea.formateur">
+              <!-- <input type="text" class="form-control" name="formateur" id="formateur" [(ngModel)]="searchCriterea.formateur"> -->
+              <ng-select [items]="formateurList" bindLabel="nomComplet" bindValue="iD_USER" id="formateur" name="formateur"
+              [(ngModel)]="searchCriterea.idFormateur" #formateur="ngModel" required>
+              </ng-select>
             </div>
             <!-- <div class="col-md-4">
               <label class="label-control" for="etat">État</label>

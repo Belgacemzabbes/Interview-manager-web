@@ -43,6 +43,11 @@ export class InterviewDetailModel {
   montant: number;
   annee: number;
   niveaU_ADMISSION: string;
+  iD_USER: number;
+  noM_USER: string;
+  prenoM_USER: string;
+  formateur: string;
+  commentaire: string;
 }
 export class InterviewSearchModel {
   session: string;

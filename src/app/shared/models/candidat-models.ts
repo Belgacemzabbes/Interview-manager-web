@@ -18,5 +18,5 @@ export class CandidatListeEntretienSearchCriterea{
     session: string;
     candidat: string;
     dateSession: Date;
-    formateur: string;
+    idFormateur: number;
 }

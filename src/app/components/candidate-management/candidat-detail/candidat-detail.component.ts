@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { EtatDetailENum, EtatEntretienENum, ReportTypeEnum } from 'src/app/shared/Enumerators/Enums';
+import {
+  EtatDetailENum,
+  EtatEntretienENum,
+  ReportTypeEnum,
+} from 'src/app/shared/Enumerators/Enums';
 import { CandidateModel } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
@@ -14,7 +18,7 @@ import { NgxToastrService } from 'src/app/shared/services/toastr.service';
 @Component({
   selector: 'app-candidat-detail',
   templateUrl: './candidat-detail.component.html',
-  styleUrls: ['./candidat-detail.component.scss']
+  styleUrls: ['./candidat-detail.component.scss'],
 })
 export class CandidatDetailComponent implements OnInit {
   public candidatList: CandidateModel[] = [];
@@ -25,9 +29,9 @@ export class CandidatDetailComponent implements OnInit {
   public identiteCandidat: string = '';
   public isHidden = true;
   public reportTypeEnum = ReportTypeEnum;
-  public etatDetail : number;
+  public etatDetail: number;
   private idEntretien: number;
-  private etatEntretienENum = EtatEntretienENum
+  private etatEntretienENum = EtatEntretienENum;
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
@@ -37,42 +41,47 @@ export class CandidatDetailComponent implements OnInit {
     private activtedRouter: ActivatedRoute,
     private reportingSevice: ReportingService,
     private route: Router
-  ) { }
+  ) {}
 
   ngOnInit(): void {
-    this.idEntretien = Number(this.activtedRouter.snapshot.paramMap.get('idEntretien'));
-    this.etatDetail = Number(this.activtedRouter.snapshot.paramMap.get('etatDetail'));
-    this.getInterviewById()
+    this.idEntretien = Number(
+      this.activtedRouter.snapshot.paramMap.get('idEntretien')
+    );
+    this.etatDetail = Number(
+      this.activtedRouter.snapshot.paramMap.get('etatDetail')
+    );
+    this.getInterviewById();
     // this.getAllState();
   }
-  public changeState(){
-    switch (this.interviewDetail.liB_ETAT){
-      case EtatEntretienENum.EnCours:{
-        this.onConfirmPresence("Preinscrit");
+  public changeState() {
+    switch (this.interviewDetail.liB_ETAT) {
+      case EtatEntretienENum.EnCours: {
+        this.onConfirmPresence('Preinscrit');
         break;
       }
-      case EtatEntretienENum.Preinscrit:{
-        this.onConfirmPresence("Inscrit");
+      case EtatEntretienENum.Preinscrit: {
+        this.onConfirmPresence('Inscrit');
         break;
       }
     }
   }
   private async getAllState() {
-    this.stateService
-      .GetAllState()
-      .subscribe(
-        (data) => {this.stateList = data;
-          this.etatId = data.find(
-            (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
-          ).iD_ETAT;
-        }
-      );
+    this.stateService.GetAllState().subscribe((data) => {
+      this.stateList = data;
+      this.etatId = data.find(
+        (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
+      ).iD_ETAT;
+    });
   }
   public async getInterviewById() {
-    this.interviewService.GetInterviewById(this.idEntretien)
-      .subscribe(
-        (data) => ((this.interviewDetail = data), (this.isHidden = false))
-      );
+    this.interviewService
+      .GetInterviewById(this.idEntretien)
+      .subscribe((data) => {
+        this.interviewDetail = data;
+        this.interviewDetail.formateur =
+          this.interviewDetail.noM_USER +" "+ this.interviewDetail.prenoM_USER;
+        this.isHidden = false;
+      });
   }
   public onCancel() {
     this.identiteCandidat = '';
@@ -128,46 +137,45 @@ export class CandidatDetailComponent implements OnInit {
       });
   }
   public async onPrint(reportType: ReportTypeEnum) {
-    switch (this.interviewDetail.liB_ETAT){
-      case EtatEntretienENum.Preinscrit:{
+    switch (this.interviewDetail.liB_ETAT) {
+      case EtatEntretienENum.Preinscrit: {
         this.reportingSevice
-        .GeneratePrinscriptionReport(
-          this.interviewDetail.iD_ENTRETIEN,
-          reportType
-        )
-        .subscribe((response) => {
-          let fileName = response.headers
-            .get('content-disposition')
-            ?.split(';')[1]
-            .split('=')[1];
-          let blob: Blob = response.body as Blob;
-          let a = document.createElement('a');
-          a.download = fileName;
-          a.href = window.URL.createObjectURL(blob);
-          a.click();
-        });
+          .GeneratePrinscriptionReport(
+            this.interviewDetail.iD_ENTRETIEN,
+            reportType
+          )
+          .subscribe((response) => {
+            let fileName = response.headers
+              .get('content-disposition')
+              ?.split(';')[1]
+              .split('=')[1];
+            let blob: Blob = response.body as Blob;
+            let a = document.createElement('a');
+            a.download = fileName;
+            a.href = window.URL.createObjectURL(blob);
+            a.click();
+          });
         break;
       }
-      case EtatEntretienENum.Inscrit:{
+      case EtatEntretienENum.Inscrit: {
         this.reportingSevice
-        .GenerateInscriptionReport(
-          this.interviewDetail.iD_ENTRETIEN,
-          reportType
-        )
-        .subscribe((response) => {
-          let fileName = response.headers
-            .get('content-disposition')
-            ?.split(';')[1]
-            .split('=')[1];
-          let blob: Blob = response.body as Blob;
-          let a = document.createElement('a');
-          a.download = fileName;
-          a.href = window.URL.createObjectURL(blob);
-          a.click();
-        });
+          .GenerateInscriptionReport(
+            this.interviewDetail.iD_ENTRETIEN,
+            reportType
+          )
+          .subscribe((response) => {
+            let fileName = response.headers
+              .get('content-disposition')
+              ?.split(';')[1]
+              .split('=')[1];
+            let blob: Blob = response.body as Blob;
+            let a = document.createElement('a');
+            a.download = fileName;
+            a.href = window.URL.createObjectURL(blob);
+            a.click();
+          });
         break;
       }
     }
   }
-
 }

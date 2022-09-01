@@ -11,6 +11,7 @@ import { CandidatListeComponent } from './candidat-liste/candidat-liste.componen
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CandidatDetailComponent } from './candidat-detail/candidat-detail.component';
 import { CandidatListeEntretienComponent } from './candidat-liste-entretien/candidat-liste-entretien.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [CandidatListeEntretienComponent, CandidatPreinscritComponent, CandidatPaiementComponent, CandidatAttestationComponent, CandidatListeComponent, CandidatDetailComponent],
@@ -21,6 +22,7 @@ import { CandidatListeEntretienComponent } from './candidat-liste-entretien/cand
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
+    CurrencyMaskModule,
   ],
 })
 export class CandidateManagementModule {}

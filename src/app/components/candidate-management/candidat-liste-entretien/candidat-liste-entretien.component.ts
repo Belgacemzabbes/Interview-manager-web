@@ -8,12 +8,14 @@ import {
 import { CandidateModel, CandidatListeEntretienSearchCriterea } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
+import { UserModel } from 'src/app/shared/models/user-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
 import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-candidat-liste-entretien',
@@ -34,16 +36,25 @@ export class CandidatListeEntretienComponent implements OnInit {
   public paginationConfig = new PaginationConfig();
   public pageSizeList = PageSizeEnumList;
   public etatDetail = EtatDetailENum
+  public formateurList: UserModel[] = [];
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
     private interviewService: InterviewService,
     private toastrService: NgxToastrService,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.getAllState();
+    this.GetAllFormateur();
+  }
+  async GetAllFormateur() {
+    (await this.userService.GetAllFormateurs()).subscribe((data) => {
+      this.formateurList = data;
+      this.formateurList.map(f => f.nomComplet = f.noM_USER + ' ' + f.prenoM_USER);
+    });
   }
   private async getCandidateByStateId() {
     this.candidatService

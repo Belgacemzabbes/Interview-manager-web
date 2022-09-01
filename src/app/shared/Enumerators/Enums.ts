@@ -22,8 +22,6 @@ export enum EtatDetailENum {
   Paiement = 3,
   Attestation = 4,
 }
-
-
 export const PageSizeEnumList: {
   key: string;
   value: string;
