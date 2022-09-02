@@ -45,6 +45,7 @@ import { StateApiUrls } from './shared/apiUrls/state-api-urls';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ReportingApiUrls } from './shared/apiUrls/reporting-api-urls';
 import { UserApiUrls } from './shared/apiUrls/user-api-urls';
+import { MovementApiUrls } from './shared/apiUrls/movement-api-urls';
 
 export const CustomCurrencyMaskConfig: CurrencyMaskConfig = {
   align: 'left',
@@ -134,6 +135,7 @@ export function tokenGetter() {
     StateApiUrls,
     ReportingApiUrls,
     UserApiUrls,
+    MovementApiUrls,
     DatePipe,
     { provide: CURRENCY_MASK_CONFIG, useValue: CustomCurrencyMaskConfig },
   ],

@@ -14,6 +14,7 @@ import { ReportingService } from 'src/app/shared/services/reporting.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-candidat-detail',
@@ -56,7 +57,7 @@ export class CandidatDetailComponent implements OnInit {
   public changeState() {
     switch (this.interviewDetail.liB_ETAT) {
       case EtatEntretienENum.EnCours: {
-        this.onConfirmPresence('Preinscrit');
+        this.onConfirmPresence('Préinscrit');
         break;
       }
       case EtatEntretienENum.Preinscrit: {
@@ -79,7 +80,9 @@ export class CandidatDetailComponent implements OnInit {
       .subscribe((data) => {
         this.interviewDetail = data;
         this.interviewDetail.formateur =
-          this.interviewDetail.noM_USER +" "+ this.interviewDetail.prenoM_USER;
+          this.interviewDetail.noM_USER +
+          ' ' +
+          this.interviewDetail.prenoM_USER;
         this.isHidden = false;
       });
   }
@@ -100,11 +103,8 @@ export class CandidatDetailComponent implements OnInit {
             .ChangeStateInterview(this.interviewDetail)
             .subscribe((data) => {
               this.toastrService.displaySuccessMessage('Confirmé avec succés!');
-              // let a = document.createElement('a');
-              // a.href = `/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`
-              // a.click();
-              // this.route.navigateByUrl(`/candidate-management/candidate-detail/${this.etatDetail + 1 }/${this.interviewDetail.iD_ENTRETIEN}`);
               this.isHidden = true;
+              this.onPrint(this.reportTypeEnum.PDF);
               this.onCancel();
               // this.sweetAlert
               // .showChoiceMessage(
@@ -139,21 +139,30 @@ export class CandidatDetailComponent implements OnInit {
   public async onPrint(reportType: ReportTypeEnum) {
     switch (this.interviewDetail.liB_ETAT) {
       case EtatEntretienENum.Preinscrit: {
+        
         this.reportingSevice
           .GeneratePrinscriptionReport(
             this.interviewDetail.iD_ENTRETIEN,
             reportType
           )
-          .subscribe((response) => {
+          .subscribe((response) => {;
+            // console.log(filePath)
+            // window.open(filePath, "_blank")
             let fileName = response.headers
               .get('content-disposition')
               ?.split(';')[1]
               .split('=')[1];
-            let blob: Blob = response.body as Blob;
-            let a = document.createElement('a');
-            a.download = fileName;
-            a.href = window.URL.createObjectURL(blob);
-            a.click();
+              console.log(fileName, 'hghghgh');
+              let filePath = environment.PathFiles + fileName
+            // let blob = response.body;
+            // let a = document.createElement('a');
+            // a.download = fileName;
+            // a.href = window.URL.createObjectURL(blob);
+            // a.click();
+            // let filePath = URL.createObjectURL(blob);
+            // console.log(filePath)
+             window.open(filePath, "_blank")
+           
           });
         break;
       }
@@ -163,16 +172,18 @@ export class CandidatDetailComponent implements OnInit {
             this.interviewDetail.iD_ENTRETIEN,
             reportType
           )
-          .subscribe((response) => {
-            let fileName = response.headers
-              .get('content-disposition')
-              ?.split(';')[1]
-              .split('=')[1];
-            let blob: Blob = response.body as Blob;
-            let a = document.createElement('a');
-            a.download = fileName;
-            a.href = window.URL.createObjectURL(blob);
-            a.click();
+          .subscribe((data) => {
+            // let filePath = environment.PathFiles + data.toString();
+            // console.log(filePath);
+            // let fileName = response.headers
+            //   .get('content-disposition')
+            //   ?.split(';')[1]
+            //   .split('=')[1];
+            // let blob: Blob = response.body as Blob;
+            // let a = document.createElement('a');
+            // a.download = fileName;
+            // a.href = window.URL.createObjectURL(blob);
+            // a.click();
           });
         break;
       }

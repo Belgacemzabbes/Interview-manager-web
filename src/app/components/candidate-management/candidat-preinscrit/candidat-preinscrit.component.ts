@@ -133,21 +133,21 @@ export class CandidatPreinscritComponent implements OnInit {
     });
   }
   public async onPrint(reportType: ReportTypeEnum) {
-    this.reportingSevice
+    (await this.reportingSevice
       .GeneratePrinscriptionReport(
         this.interviewDetail.iD_ENTRETIEN,
         reportType
-      )
+      ))
       .subscribe((response) => {
-        let fileName = response.headers
-          .get('content-disposition')
-          ?.split(';')[1]
-          .split('=')[1];
-        let blob: Blob = response.body as Blob;
-        let a = document.createElement('a');
-        a.download = fileName;
-        a.href = window.URL.createObjectURL(blob);
-        a.click();
+        // let fileName = response.headers
+        //   .get('content-disposition')
+        //   ?.split(';')[1]
+        //   .split('=')[1];
+        // let blob: Blob = response.body as Blob;
+        // let a = document.createElement('a');
+        // a.download = fileName;
+        // a.href = window.URL.createObjectURL(blob);
+        // a.click();
       });
   }
 }

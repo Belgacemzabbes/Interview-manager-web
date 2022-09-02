@@ -19,8 +19,7 @@ export class ReportingService {
   ) {
     const jwt = this.authService.GetToken();
     return this.http.get(this.reportingApiUrls.GeneratePrinscriptionReportUrl, {
-      headers: jwt,
-      params: { idEntretien, reportType }, observe: "response", responseType: "blob"
+      headers: jwt, params: { idEntretien, reportType }, observe:"response", responseType: "blob"
     });
   }
   public GenerateInscriptionReport(
@@ -29,8 +28,7 @@ export class ReportingService {
   ) {
     const jwt = this.authService.GetToken();
     return this.http.get(this.reportingApiUrls.GenerateInscriptionReportUrl, {
-      headers: jwt,
-      params: { idEntretien, reportType }, observe: "response", responseType: "blob"
+      headers: jwt, params: { idEntretien, reportType }, observe:"response", responseType: "blob"
     });
   }
 }

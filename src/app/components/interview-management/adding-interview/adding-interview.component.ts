@@ -87,6 +87,7 @@ export class AddingInterviewComponent implements OnInit {
       this.interview.heurE_ENTRETIEN.toString();
       this.interview.formation.iD_FORMATION = this.formationDetail.iD_FORMATION;
       this.interview.formation.iD_ETABLISSEMENT = this.formationDetail.iD_ETABLISSEMENT;
+      this.interview.formation.iD_ETABLISSEMENT_SOURCE = this.formationDetail.iD_ETABLISSEMENT_SOURCE;
       this.interview.formation.liB_FORMATION = this.formationDetail.liB_FORMATION;
       this.interview.formation.annee = this.formationDetail.annee;
       this.interview.formation.class = this.formationDetail.classe;
@@ -95,6 +96,7 @@ export class AddingInterviewComponent implements OnInit {
       this.interview.formation.directeur = this.formationDetail.directeur;
       this.interview.formation.montant = this.formationDetail.montant;
       this.interview.formation.ville = this.formationDetail.ville;
+      this.interview.formation.iD_FORMATION_SOURCE = this.formationDetail.iD_FORMATION_SOURCE;
       this.interview.formation.niveaU_ADMISSION = this.formationDetail.niveaU_ADMISSION;
       this.interviewService.AddInterview(this.interview).subscribe((data) => {
         if (data === AddReponseEnum.NotExist) {
