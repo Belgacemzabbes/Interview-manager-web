@@ -9,6 +9,7 @@ export const environment = {
   //apiUrl: "http://192.168.1.25:8051",
   dateShortDisplayFormat: "dd-MM-yyyy",
   PathFiles: "D:/Interview-Management-Application/Interview-manager-web/src/assets/upload/"
+ 
 };
 
 /*

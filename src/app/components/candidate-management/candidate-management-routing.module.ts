@@ -12,10 +12,10 @@ const routes: Routes = [
     path:'',
     children:[
       {
-        path:'candidate-presence',
+        path:'candidat-liste-entretien',
         component: CandidatListeEntretienComponent,
         data:{
-          title:'candidate-presence'
+          title:'candidat-liste-entretien'
         }
       },
       {

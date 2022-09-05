@@ -155,9 +155,9 @@ export class CandidatDetailComponent implements OnInit {
               console.log(fileName, 'hghghgh');
               let filePath = environment.PathFiles + fileName
             // let blob = response.body;
-            // let a = document.createElement('a');
+            //  let a = document.createElement('a');
             // a.download = fileName;
-            // a.href = window.URL.createObjectURL(blob);
+            // a.href = filePath;
             // a.click();
             // let filePath = URL.createObjectURL(blob);
             // console.log(filePath)
