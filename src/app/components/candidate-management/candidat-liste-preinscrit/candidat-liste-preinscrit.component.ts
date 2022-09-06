@@ -6,9 +6,10 @@ import {
   PageSizeEnumList,
   ReportTypeEnum,
 } from 'src/app/shared/Enumerators/Enums';
-import { CandidateModel } from 'src/app/shared/models/candidat-models';
+import { CandidateModel, CandidatListeEntretienSearchCriterea } from 'src/app/shared/models/candidat-models';
 import { InterviewDetailModel } from 'src/app/shared/models/interview-models';
 import { StateModel } from 'src/app/shared/models/state-models';
+import { UserModel } from 'src/app/shared/models/user-models';
 import { CandidatService } from 'src/app/shared/services/candidat.service';
 import { InterviewService } from 'src/app/shared/services/interview.service';
 import { PaginationConfig } from 'src/app/shared/services/pagination-config.service';
@@ -16,16 +17,18 @@ import { ReportingService } from 'src/app/shared/services/reporting.service';
 import { StateService } from 'src/app/shared/services/state.service';
 import { SweetAlertService } from 'src/app/shared/services/sweet-alert.service';
 import { NgxToastrService } from 'src/app/shared/services/toastr.service';
+import { UserService } from 'src/app/shared/services/user.service';
 
 @Component({
   selector: 'app-candidat-preinscrit',
-  templateUrl: './candidat-preinscrit.component.html',
-  styleUrls: ['./candidat-preinscrit.component.scss'],
+  templateUrl: './candidat-liste-preinscrit.component.html',
+  styleUrls: ['./candidat-liste-preinscrit.component.scss'],
 })
-export class CandidatPreinscritComponent implements OnInit {
+export class CandidatListePreinscritComponent implements OnInit {
   public candidatList: CandidateModel[] = [];
   public stateList: StateModel[] = [];
   public interviewDetail: InterviewDetailModel = new InterviewDetailModel();
+  public searchCriterea: CandidatListeEntretienSearchCriterea = new CandidatListeEntretienSearchCriterea();
   public interviewList: InterviewDetailModel[] = [];
   public interviewListFiltered: InterviewDetailModel[] = [];
   public etatId: number = 0;
@@ -37,27 +40,35 @@ export class CandidatPreinscritComponent implements OnInit {
   public paginationConfig = new PaginationConfig();
   public pageSizeList = PageSizeEnumList;
   public etatDetail = EtatDetailENum
+  public formateurList: UserModel[] = [];
   constructor(
     private candidatService: CandidatService,
     private stateService: StateService,
     private interviewService: InterviewService,
     private toastrService: NgxToastrService,
     private reportingSevice: ReportingService,
-    private sweetAlert: SweetAlertService
+    private sweetAlert: SweetAlertService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.getAllState();
+    this.GetAllFormateur()
   }
-  public getAllInterviewByCandidatIdAndEtatI() {
+  public getInterviewByCandidatListeEntretienSearchCriterea() {
     this.interviewService
-      .GetAllInterviewByCandidatIdAndEtatId(this.identiteCandidat, this.etatId)
+      .GetInterviewByCandidatListeEntretienSearchCriterea(this.searchCriterea)
       .subscribe((data) => {
         this.interviewList = data;
         this.interviewListFiltered = data;
       });
   }
-
+  async GetAllFormateur() {
+    (await this.userService.GetAllFormateurs()).subscribe((data) => {
+      this.formateurList = data;
+      this.formateurList.map(f => f.nomComplet = f.noM_USER + ' ' + f.prenoM_USER);
+    });
+  }
   private async getCandidateByStateId() {
     this.candidatService
       .GetCandidateByStateId(this.etatId)
@@ -71,10 +82,11 @@ export class CandidatPreinscritComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          (this.etatId = data.find(
+          console.log(this.stateList),
+          (this.searchCriterea.idEtat = this.stateList.find(
             (s) => s.liB_ETAT === EtatEntretienENum.Preinscrit
           ).iD_ETAT),
-          this.getAllInterviewByCandidatIdAndEtatI()
+          this.getInterviewByCandidatListeEntretienSearchCriterea()
         )
       );
   }

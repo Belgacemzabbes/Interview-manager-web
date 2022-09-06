@@ -106,14 +106,6 @@ export class CandidatDetailComponent implements OnInit {
               this.isHidden = true;
               this.onPrint(this.reportTypeEnum.PDF);
               this.onCancel();
-              // this.sweetAlert
-              // .showChoiceMessage(
-              //   'Voulez-vous imprimer l\'attetation?'
-              // ).then((response)=>{
-              //   if(response){
-
-              //   }
-              // })
             });
         }
       });

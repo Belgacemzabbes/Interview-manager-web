@@ -69,7 +69,6 @@ export class CandidatListeEntretienComponent implements OnInit {
       .subscribe(
         (data) => (
           (this.stateList = data),
-          console.log(this.stateList),
           (this.searchCriterea.idEtat = this.stateList.find(
             (s) => s.liB_ETAT === EtatEntretienENum.EnCours
           ).iD_ETAT),

@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { CandidatAttestationComponent } from './candidat-attestation/candidat-attestation.component';
 import { CandidatDetailComponent } from './candidat-detail/candidat-detail.component';
 import { CandidatListeEntretienComponent } from './candidat-liste-entretien/candidat-liste-entretien.component';
+import { CandidatListeInscritComponent } from './candidat-liste-inscrit/candidat-liste-inscrit.component';
+import { CandidatListePreinscritComponent } from './candidat-liste-preinscrit/candidat-liste-preinscrit.component';
 import { CandidatListeComponent } from './candidat-liste/candidat-liste.component';
-import { CandidatPaiementComponent } from './candidat-paiement/candidat-paiement.component';
-import { CandidatPreinscritComponent } from './candidat-preinscrit/candidat-preinscrit.component';
 
 const routes: Routes = [
   {
@@ -19,24 +18,17 @@ const routes: Routes = [
         }
       },
       {
-        path:'candidate-preinscrit',
-        component: CandidatPreinscritComponent,
+        path:'candidate-liste-preinscrit',
+        component: CandidatListePreinscritComponent,
         data:{
-          title:'candidate-preinscrit'
+          title:'candidate-liste-preinscrit'
         }
       },
       {
-        path:'candidate-paiement',
-        component: CandidatPaiementComponent,
+        path:'candidate-liste-inscrit',
+        component: CandidatListeInscritComponent,
         data:{
-          title:'candidate-paiement'
-        }
-      },
-      {
-        path:'candidate-attestation',
-        component: CandidatAttestationComponent,
-        data:{
-          title:'candidate-attestation'
+          title:'candidate-liste-inscrit'
         }
       },
       {
